@@ -10,6 +10,6 @@ export class SignInComponent {
   constructor(private auth: AuthService) {}
 
   handleClick() {
-    this.auth.signIn();
+    this.auth.signIn([""]);
   }
 }

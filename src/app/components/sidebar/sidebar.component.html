@@ -1,0 +1,10 @@
+<nav class="h-full bg-white p-10 flex flex-col text-left" *ngIf="this.user">
+  <a routerLink="">Home</a>
+  <a routerLink="recipes">Recipes</a>
+  <a routerLink="ingredients">Ingredients</a>
+  <a routerLink="pantry">Current levels</a>
+  <a routerLink="shopping-list">Shoping List</a>
+  <a routerLink="inspiration">Inspiration</a>
+  <button (click)="handleSignOut()" class="text-left">Sign out</button>
+  <a class="mt-auto" routerLink="settings">{{ this.user.displayName }}</a>
+</nav>
