@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "edaf90-project-e9ce4": {
+      "hosting": {
+        "recipes": [
+          "edaf90-project-e9ce4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "edaf90-project-e9ce4"
+  }
+}
