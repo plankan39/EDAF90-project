@@ -3,6 +3,9 @@ import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-sign-in",
+  host: {
+    class: "h-full w-full block flex items-center justify-center",
+  },
   templateUrl: "./sign-in.component.html",
   styleUrls: ["./sign-in.component.css"],
 })
