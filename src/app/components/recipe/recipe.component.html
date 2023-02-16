@@ -21,5 +21,7 @@
     </mat-list-option>
   </mat-selection-list>
 
-  <button (click)="deleteRecipe(recipe['id'])">Delete</button>
+  <button mat-raised-button color="warn" (click)="deleteRecipe(recipe['id'])">
+    Delete
+  </button>
 </div>

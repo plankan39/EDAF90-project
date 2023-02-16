@@ -7,7 +7,7 @@ import {
   query,
   where,
 } from "@angular/fire/firestore";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
 import { RecipesService } from "src/app/services/recipes.service";
 

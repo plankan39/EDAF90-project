@@ -30,6 +30,8 @@ export class RecipeComponent {
       docData(doc(this.firestore, "recipes", params.id), {
         idField: "id",
       }).subscribe((recipe) => {
+        if (!recipe) return;
+
         const ingredientCol = collection(this.firestore, "ingredients");
 
         const ingredientIds = recipe["ingredients"].map(
@@ -42,17 +44,19 @@ export class RecipeComponent {
             idField: "id",
           }
         ).subscribe((ingredients) => {
-          recipe = {
+          this.recipe = {
             ...recipe,
-            ingredients: ingredients.map((ingredient: any) => ({
-              ...ingredient,
-              quantity: recipe["ingredients"].find(
+            ingredients: ingredients.map((ingredient: any) => {
+              const quantity = recipe["ingredients"].find(
                 (i: any) => i["ingredientId"] === ingredient["id"]
-              ).quantity,
-            })),
-          };
+              ).quantity;
 
-          this.recipe = recipe;
+              return {
+                ...ingredient,
+                quantity,
+              };
+            }),
+          };
         });
       });
     });
