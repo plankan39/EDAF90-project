@@ -12,8 +12,4 @@ export class IngredientsTableComponent {
   @Input() ingredients!: DocumentData[];
 
   constructor(private ingredientsService: IngredientsService) {}
-
-  deleteIngredient(id: string) {
-    this.ingredientsService.deleteIngredient(id);
-  }
 }

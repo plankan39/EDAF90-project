@@ -1,5 +1,15 @@
 import { Component } from "@angular/core";
-import { doc, docData, DocumentData, Firestore } from "@angular/fire/firestore";
+import {
+  collection,
+  collectionData,
+  doc,
+  docData,
+  DocumentData,
+  Firestore,
+  query,
+  where,
+  documentId,
+} from "@angular/fire/firestore";
 import { ActivatedRoute } from "@angular/router";
 import { RecipesService } from "src/app/services/recipes.service";
 
@@ -19,7 +29,32 @@ export class RecipeComponent {
     this.route.params.subscribe((params: any) => {
       docData(doc(this.firestore, "recipes", params.id), {
         idField: "id",
-      }).subscribe((recipe) => (this.recipe = recipe));
+      }).subscribe((recipe) => {
+        const ingredientCol = collection(this.firestore, "ingredients");
+
+        const ingredientIds = recipe["ingredients"].map(
+          (ingredient: any) => ingredient["ingredientId"]
+        );
+
+        collectionData(
+          query(ingredientCol, where(documentId(), "in", ingredientIds)),
+          {
+            idField: "id",
+          }
+        ).subscribe((ingredients) => {
+          recipe = {
+            ...recipe,
+            ingredients: ingredients.map((ingredient: any) => ({
+              ...ingredient,
+              quantity: recipe["ingredients"].find(
+                (i: any) => i["ingredientId"] === ingredient["id"]
+              ).quantity,
+            })),
+          };
+
+          this.recipe = recipe;
+        });
+      });
     });
   }
 

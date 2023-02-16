@@ -1,4 +1,25 @@
-<h1>{{ recipe["title"] }}</h1>
-<p>{{ recipe["description"] }}</p>
-<p>{{ recipe["cookingTime"] }} minutes</p>
-<button (click)="deleteRecipe(recipe['id'])">Delete</button>
+<div *ngIf="recipe">
+  <h1>{{ recipe["title"] }}</h1>
+  <p>{{ recipe["description"] }}</p>
+  <p>{{ recipe["cookingTime"] }} minutes</p>
+
+  <h2>Ingredients</h2>
+  <mat-list role="list">
+    <mat-list-item
+      role="listitem"
+      *ngFor="let ingredient of recipe['ingredients']"
+    >
+      {{ ingredient["title"] }} - {{ ingredient["quantity"] }}
+      {{ ingredient["unit"] }}
+    </mat-list-item>
+  </mat-list>
+
+  <h2>Instructions</h2>
+  <mat-selection-list #shoes>
+    <mat-list-option *ngFor="let instruction of recipe['instructions']">
+      {{ instruction["description"] }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <button (click)="deleteRecipe(recipe['id'])">Delete</button>
+</div>

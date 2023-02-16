@@ -10,13 +10,6 @@
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let ingredient">
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="deleteIngredient(ingredient['id'])"
-      >
-        Delete
-      </button>
       <button mat-raised-button (click)="setFormValues(ingredient)">
         Edit
       </button>

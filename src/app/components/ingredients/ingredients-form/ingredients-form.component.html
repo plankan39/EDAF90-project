@@ -9,13 +9,25 @@
       formControlName="title"
     />
   </mat-form-field>
+
   <mat-form-field appearance="fill">
-    <mat-label>Select me</mat-label>
+    <mat-label>Units</mat-label>
     <mat-select formControlName="unit">
-      <mat-option value="cm">cm</mat-option>
-      <mat-option value="m">m</mat-option>
-      <mat-option value="in">in</mat-option>
-      <mat-option value="ft">ft</mat-option>
+      <mat-optgroup label="Volume">
+        <mat-option value="ml">ml</mat-option>
+        <mat-option value="cl">cl</mat-option>
+        <mat-option value="dl">dl</mat-option>
+        <mat-option value="l">l</mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Weight">
+        <mat-option value="g">g</mat-option>
+        <mat-option value="hg">hg</mat-option>
+        <mat-option value="kg">kg</mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Quantity">
+        <mat-option value="pieces">Pieces</mat-option>
+        <mat-option value="packs">Packs</mat-option>
+      </mat-optgroup>
     </mat-select>
   </mat-form-field>
 

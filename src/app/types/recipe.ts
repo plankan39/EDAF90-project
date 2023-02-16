@@ -9,4 +9,6 @@ export interface RecipePayload {
   title: string;
   description: string;
   cookingTime: number;
+  ingredients: any[];
+  instructions: any[];
 }

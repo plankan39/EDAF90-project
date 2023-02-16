@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { DocumentData } from "@angular/fire/firestore";
-import { FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IngredientsService } from "src/app/services/ingredients.service";
 
 @Component({
@@ -12,7 +12,10 @@ export class IngredientsFormComponent {
   @Input() form!: FormGroup;
   @Input() currentUpdateIngredient!: DocumentData | null;
 
-  constructor(private ingredientsService: IngredientsService) {}
+  constructor(
+    private ingredientsService: IngredientsService,
+    private formBuilder: FormBuilder
+  ) {}
 
   handleSubmit() {
     if (!this.currentUpdateIngredient) {

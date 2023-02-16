@@ -34,12 +34,6 @@ export class IngredientsService {
     });
   }
 
-  deleteIngredient(id: string) {
-    if (!this.user) return;
-
-    deleteDoc(doc(this.firestore, "ingredients", id));
-  }
-
   updateIngredient(id: string, ingredient: IngredientPayload) {
     if (!this.user) return;
 

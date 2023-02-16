@@ -7,6 +7,7 @@ import {
   doc,
   Firestore,
   serverTimestamp,
+  writeBatch,
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { RecipePayload } from "../types/recipe";
@@ -35,7 +36,9 @@ export class RecipesService {
       ...recipe,
       userId: this.user.uid,
       created: serverTimestamp(),
-    }).then((ref) => this.router.navigate(["recipes", ref.id]));
+    }).then((ref) => {
+      this.router.navigate(["recipes", ref.id]);
+    });
   }
 
   deleteRecipe(id: string) {
