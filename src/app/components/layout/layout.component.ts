@@ -10,7 +10,13 @@ import { AuthService } from "src/app/services/auth.service";
 export class LayoutComponent {
   user: User | null = null;
 
-  constructor(private auth: AuthService) {
-    this.auth.getUser().subscribe((user: User | null) => (this.user = user));
+  constructor(private authService: AuthService) {
+    this.authService
+      .getUser()
+      .subscribe((user: User | null) => (this.user = user));
+  }
+
+  handleSignOut(): void {
+    this.authService.signOut(["sign-in"]);
   }
 }

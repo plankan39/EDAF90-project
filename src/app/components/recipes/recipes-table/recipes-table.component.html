@@ -1,0 +1,12 @@
+<table mat-table [dataSource]="recipes$" class="mat-elevation-z8">
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let recipe">{{ recipe.title }}</td>
+  </ng-container>
+  <ng-container matColumnDef="information">
+    <th mat-header-cell *matHeaderCellDef>Information</th>
+    <td mat-cell *matCellDef="let recipe">{{ recipe.description }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['title', 'information']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['title', 'information']"></tr>
+</table>

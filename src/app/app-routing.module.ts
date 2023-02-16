@@ -10,6 +10,7 @@ import { IngredientComponent } from "./components/ingredient/ingredient.componen
 import { IngredientsComponent } from "./components/ingredients/ingredients.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { PantryComponent } from "./components/pantry/pantry.component";
+import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
 import { RecipeComponent } from "./components/recipe/recipe.component";
 import { RecipesComponent } from "./components/recipes/recipes.component";
 import { SettingsComponent } from "./components/settings/settings.component";
@@ -35,6 +36,12 @@ const routes: Routes = [
   {
     path: "recipes",
     component: RecipesComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorized },
+  },
+  {
+    path: "recipes/new",
+    component: RecipeNewComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },

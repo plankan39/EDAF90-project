@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+}
+
+.sidenav {
+  min-width: 14em;
+}
+
+main {
+  padding: 2em;
+}

@@ -1,1 +1,8 @@
-<p>ingredients works!</p>
+<app-ingredients-form
+  [form]="form"
+  [currentUpdateIngredient]="currentUpdateIngredient"
+></app-ingredients-form>
+<app-ingredients-table
+  [ingredients$]="ingredients$"
+  [setFormValues]="setFormValues"
+></app-ingredients-table>

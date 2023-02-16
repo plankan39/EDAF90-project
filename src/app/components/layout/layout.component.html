@@ -1,6 +1,18 @@
-<div class="flex h-screen w-full overflow-hidden bg-blue-50">
-  <app-sidebar *ngIf="user" class="basis-72"></app-sidebar>
-  <main class="flex-1 p-10">
+<mat-sidenav-container *ngIf="user" class="container">
+  <mat-sidenav opened mode="side" class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="">Home</a>
+      <a mat-list-item routerLink="recipes">Recipes</a>
+      <a mat-list-item routerLink="ingredients">Ingredients</a>
+      <a mat-list-item routerLink="pantry">Current levels</a>
+      <a mat-list-item routerLink="shopping-list">Shoping List</a>
+      <a mat-list-item routerLink="inspiration">Inspiration</a>
+      <button mat-list-item (click)="handleSignOut()">Sign out</button>
+
+      <a mat-list-item routerLink="settings">{{ this.user.displayName }}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <main>
     <router-outlet></router-outlet>
   </main>
-</div>
+</mat-sidenav-container>

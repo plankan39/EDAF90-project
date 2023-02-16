@@ -10,9 +10,9 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./sign-in.component.css"],
 })
 export class SignInComponent {
-  constructor(private auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   handleClick() {
-    this.auth.signIn([""]);
+    this.authService.signIn([""]);
   }
 }
