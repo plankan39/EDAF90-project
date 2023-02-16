@@ -1,13 +1,11 @@
-import { collectionData, DocumentData, Query } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
+import { DocumentData } from "@angular/fire/firestore";
+import { BehaviorSubject, Observable } from "rxjs";
 
 export const getObservable = (
-  query: Query<DocumentData>,
-  subject: BehaviorSubject<DocumentData[]>
+  observable: Observable<DocumentData | DocumentData[]>,
+  subject: BehaviorSubject<DocumentData[] | DocumentData>
 ) => {
-  collectionData(query, {
-    idField: "id",
-  }).subscribe((val: DocumentData[]) => {
+  observable.subscribe((val: DocumentData[] | DocumentData) => {
     subject.next(val);
   });
 
