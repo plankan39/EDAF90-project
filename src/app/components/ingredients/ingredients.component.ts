@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import {
   collection,
+  collectionData,
   DocumentData,
   Firestore,
   query,
@@ -17,7 +18,7 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./ingredients.component.css"],
 })
 export class IngredientsComponent {
-  ingredients$ = new BehaviorSubject<DocumentData[]>([]);
+  ingredients$ = new BehaviorSubject<any>([]);
   form: FormGroup;
   currentUpdateIngredient: DocumentData | null = null;
 
@@ -34,8 +35,11 @@ export class IngredientsComponent {
     this.authService.getUser().subscribe((user) => {
       if (user) {
         const col = collection(this.firestore, "ingredients");
+
         getObservable(
-          query(col, where("userId", "==", user.uid)),
+          collectionData(query(col, where("userId", "==", user.uid)), {
+            idField: "id",
+          }),
           this.ingredients$
         );
       }
