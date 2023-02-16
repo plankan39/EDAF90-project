@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="recipes$" class="mat-elevation-z8">
+<table mat-table [dataSource]="recipes" class="mat-elevation-z8">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
     <td mat-cell *matCellDef="let recipe">
@@ -7,8 +7,20 @@
   </ng-container>
   <ng-container matColumnDef="information">
     <th mat-header-cell *matHeaderCellDef>Information</th>
-    <td mat-cell *matCellDef="let recipe">{{ recipe.description }}</td>
+    <td mat-cell *matCellDef="let recipe">
+      <p>{{ recipe.description }}</p>
+      <p>{{ recipe.cookingTime }} minutes</p>
+    </td>
   </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['title', 'information']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['title', 'information']"></tr>
+  <ng-container matColumnDef="add">
+    <th mat-header-cell *matHeaderCellDef>Add</th>
+    <td mat-cell *matCellDef="let recipe">
+      <button mat-raised-button>Add to list</button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['title', 'information', 'add']"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['title', 'information', 'add']"
+  ></tr>
 </table>

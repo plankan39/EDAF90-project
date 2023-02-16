@@ -1,16 +1,25 @@
 <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-  <mat-form-field>
-    <input matInput placeholder="Title" formControlName="title" />
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a title</mat-label>
+    <input
+      matInput
+      #input
+      maxlength="10"
+      placeholder="Ex. Tomatoes"
+      formControlName="title"
+    />
   </mat-form-field>
-  <mat-form-field>
-    <mat-select formControlName="unit" defau>
+  <mat-form-field appearance="fill">
+    <mat-label>Select me</mat-label>
+    <mat-select formControlName="unit">
       <mat-option value="cm">cm</mat-option>
       <mat-option value="m">m</mat-option>
       <mat-option value="in">in</mat-option>
       <mat-option value="ft">ft</mat-option>
     </mat-select>
   </mat-form-field>
-  <button type="submit">
+
+  <button mat-raised-button type="submit">
     {{ currentUpdateIngredient ? "Edit" : "Add" }}
   </button>
 </form>

@@ -9,8 +9,7 @@ import {
   doc,
   updateDoc,
 } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
-import { Ingredient, IngredientPayload } from "../types/ingredient";
+import { IngredientPayload } from "../types/ingredient";
 import { AuthService } from "./auth.service";
 
 @Injectable({
@@ -42,6 +41,8 @@ export class IngredientsService {
   }
 
   updateIngredient(id: string, ingredient: IngredientPayload) {
+    if (!this.user) return;
+
     updateDoc(doc(this.firestore, "ingredients", id), { ...ingredient });
   }
 }

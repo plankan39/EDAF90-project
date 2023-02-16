@@ -6,7 +6,6 @@ import {
 } from "@angular/fire/auth-guard";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./components/home/home.component";
-import { IngredientComponent } from "./components/ingredient/ingredient.component";
 import { IngredientsComponent } from "./components/ingredients/ingredients.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { PantryComponent } from "./components/pantry/pantry.component";
@@ -54,12 +53,6 @@ const routes: Routes = [
   {
     path: "ingredients",
     component: IngredientsComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
-    path: "ingredients/:id",
-    component: IngredientComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },

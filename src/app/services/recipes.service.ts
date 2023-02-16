@@ -3,11 +3,13 @@ import { User } from "@angular/fire/auth";
 import {
   addDoc,
   collection,
-  DocumentData,
+  deleteDoc,
+  doc,
   Firestore,
   serverTimestamp,
 } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { RecipePayload } from "../types/recipe";
 import { AuthService } from "./auth.service";
 
 @Injectable({
@@ -16,19 +18,31 @@ import { AuthService } from "./auth.service";
 export class RecipesService {
   user: User | null = null;
 
-  constructor(private firestore: Firestore, private authService: AuthService) {
-    authService.getUser().subscribe((user) => {
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.authService.getUser().subscribe((user) => {
       this.user = user;
     });
   }
 
-  addRecipe() {
+  addRecipe(recipe: RecipePayload) {
     if (!this.user) return;
 
     addDoc(collection(this.firestore, "recipes"), {
-      title: "recipe 1",
+      ...recipe,
       userId: this.user.uid,
       created: serverTimestamp(),
-    });
+    }).then((ref) => this.router.navigate(["recipes", ref.id]));
+  }
+
+  deleteRecipe(id: string) {
+    if (!this.user) return;
+
+    deleteDoc(doc(this.firestore, "recipes", id)).then(() =>
+      this.router.navigate(["/recipes"])
+    );
   }
 }

@@ -16,16 +16,15 @@ import { PantryComponent } from "./components/pantry/pantry.component";
 import { ShoppingListComponent } from "./components/shopping-list/shopping-list.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { SettingsComponent } from "./components/settings/settings.component";
-import { IngredientComponent } from "./components/ingredient/ingredient.component";
 import { RecipeComponent } from "./components/recipe/recipe.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./modules/material.module";
 import { IngredientsFormComponent } from "./components/ingredients/ingredients-form/ingredients-form.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { IngredientsTableComponent } from "./components/ingredients/ingredients-table/ingredients-table.component";
-import { RecipesTableComponent } from './components/recipes/recipes-table/recipes-table.component';
-import { RecipesSearchComponent } from './components/recipes/recipes-search/recipes-search.component';
-import { RecipeNewComponent } from './components/recipe-new/recipe-new.component';
+import { RecipesTableComponent } from "./components/recipes/recipes-table/recipes-table.component";
+import { RecipesSearchComponent } from "./components/recipes/recipes-search/recipes-search.component";
+import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { RecipeNewComponent } from './components/recipe-new/recipe-new.component
     ShoppingListComponent,
     InspirationComponent,
     SettingsComponent,
-    IngredientComponent,
     RecipeComponent,
     IngredientsFormComponent,
     IngredientsTableComponent,

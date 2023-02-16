@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
 import { doc, docData, DocumentData, Firestore } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
-import { AuthService } from "src/app/services/auth.service";
-import { getObservable } from "src/app/helpers/observers";
 import { ActivatedRoute } from "@angular/router";
+import { RecipesService } from "src/app/services/recipes.service";
 
 @Component({
   selector: "app-recipe",
@@ -11,14 +9,21 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./recipe.component.css"],
 })
 export class RecipeComponent {
-  recipe$ = new BehaviorSubject<DocumentData>({});
+  recipe: DocumentData = {};
 
-  constructor(private firestore: Firestore, private route: ActivatedRoute) {
-    this.route.params.subscribe((params: any) =>
-      getObservable(
-        docData(doc(this.firestore, "recipes", params.id)),
-        this.recipe$
-      )
-    );
+  constructor(
+    private firestore: Firestore,
+    private route: ActivatedRoute,
+    private recipesService: RecipesService
+  ) {
+    this.route.params.subscribe((params: any) => {
+      docData(doc(this.firestore, "recipes", params.id), {
+        idField: "id",
+      }).subscribe((recipe) => (this.recipe = recipe));
+    });
+  }
+
+  deleteRecipe(id: string) {
+    this.recipesService.deleteRecipe(id);
   }
 }

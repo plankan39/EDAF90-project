@@ -8,8 +8,6 @@ import {
   where,
 } from "@angular/fire/firestore";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
-import { getObservable } from "src/app/helpers/observers";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -18,7 +16,7 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./ingredients.component.css"],
 })
 export class IngredientsComponent {
-  ingredients$ = new BehaviorSubject<any>([]);
+  ingredients: DocumentData[] = [];
   form: FormGroup;
   currentUpdateIngredient: DocumentData | null = null;
 
@@ -36,12 +34,9 @@ export class IngredientsComponent {
       if (user) {
         const col = collection(this.firestore, "ingredients");
 
-        getObservable(
-          collectionData(query(col, where("userId", "==", user.uid)), {
-            idField: "id",
-          }),
-          this.ingredients$
-        );
+        collectionData(query(col, where("userId", "==", user.uid)), {
+          idField: "id",
+        }).subscribe((ingredients) => (this.ingredients = ingredients));
       }
     });
   }

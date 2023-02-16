@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { DocumentData } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "app-recipes-table",
@@ -8,5 +7,5 @@ import { BehaviorSubject } from "rxjs";
   styleUrls: ["./recipes-table.component.css"],
 })
 export class RecipesTableComponent {
-  @Input() recipes$!: BehaviorSubject<DocumentData[]>;
+  @Input() recipes!: DocumentData[];
 }

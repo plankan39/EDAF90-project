@@ -4,3 +4,9 @@ export interface Recipe {
   userId: string;
   createdAt: Date;
 }
+
+export interface RecipePayload {
+  title: string;
+  description: string;
+  cookingTime: number;
+}
