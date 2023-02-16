@@ -1,2 +1,13 @@
-<app-recipes-search></app-recipes-search>
+<header>
+  <h1>Recipes</h1>
+  <a
+    mat-fab
+    color="primary"
+    aria-label="Example icon button with an add icon"
+    routerLink="/recipes/new"
+  >
+    <mat-icon>add</mat-icon>
+  </a>
+</header>
+
 <app-recipes-table [recipes]="recipes"></app-recipes-table>

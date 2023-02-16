@@ -12,10 +12,7 @@ export class IngredientsFormComponent {
   @Input() form!: FormGroup;
   @Input() currentUpdateIngredient!: DocumentData | null;
 
-  constructor(
-    private ingredientsService: IngredientsService,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private ingredientsService: IngredientsService) {}
 
   handleSubmit() {
     if (!this.currentUpdateIngredient) {

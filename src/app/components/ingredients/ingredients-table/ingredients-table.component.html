@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="ingredients" class="mat-elevation-z8">
+<table mat-table [dataSource]="ingredients">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
     <td mat-cell *matCellDef="let ingredient">{{ ingredient.title }}</td>
@@ -8,9 +8,13 @@
     <td mat-cell *matCellDef="let ingredient">{{ ingredient.unit }}</td>
   </ng-container>
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let ingredient">
-      <button mat-raised-button (click)="setFormValues(ingredient)">
+      <button
+        mat-raised-button
+        (click)="setFormValues(ingredient)"
+        color="primary"
+      >
         Edit
       </button>
     </td>

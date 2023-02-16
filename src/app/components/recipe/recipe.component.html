@@ -1,27 +1,35 @@
-<div *ngIf="recipe">
-  <h1>{{ recipe["title"] }}</h1>
-  <p>{{ recipe["description"] }}</p>
-  <p>{{ recipe["cookingTime"] }} minutes</p>
+<div class="container">
+  <div>
+    <h1>{{ recipe["title"] }}</h1>
+    <p>{{ recipe["description"] }}</p>
+    <mat-chip color="accent">{{ recipe["cookingTime"] }} minutes</mat-chip>
+  </div>
 
-  <h2>Ingredients</h2>
-  <mat-list role="list">
-    <mat-list-item
-      role="listitem"
-      *ngFor="let ingredient of recipe['ingredients']"
-    >
-      {{ ingredient["title"] }} - {{ ingredient["quantity"] }}
-      {{ ingredient["unit"] }}
-    </mat-list-item>
-  </mat-list>
+  <div></div>
 
-  <h2>Instructions</h2>
-  <mat-selection-list #shoes>
-    <mat-list-option *ngFor="let instruction of recipe['instructions']">
-      {{ instruction["description"] }}
-    </mat-list-option>
-  </mat-selection-list>
+  <div>
+    <h2>Ingredients</h2>
+    <mat-list role="list">
+      <mat-list-item
+        role="listitem"
+        *ngFor="let ingredient of recipe['ingredients']"
+      >
+        {{ ingredient["title"] }} - {{ ingredient["quantity"] }}
+        {{ ingredient["unit"] }}
+      </mat-list-item>
+    </mat-list>
+  </div>
 
-  <button mat-raised-button color="warn" (click)="deleteRecipe(recipe['id'])">
-    Delete
-  </button>
+  <div>
+    <h2>Instructions</h2>
+    <mat-selection-list #shoes>
+      <mat-list-option *ngFor="let instruction of recipe['instructions']">
+        {{ instruction["description"] }}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
 </div>
+
+<button mat-raised-button color="warn" (click)="deleteRecipe(recipe['id'])">
+  Delete
+</button>

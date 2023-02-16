@@ -23,7 +23,6 @@ import { IngredientsFormComponent } from "./components/ingredients/ingredients-f
 import { ReactiveFormsModule } from "@angular/forms";
 import { IngredientsTableComponent } from "./components/ingredients/ingredients-table/ingredients-table.component";
 import { RecipesTableComponent } from "./components/recipes/recipes-table/recipes-table.component";
-import { RecipesSearchComponent } from "./components/recipes/recipes-search/recipes-search.component";
 import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
 
 @NgModule({
@@ -42,7 +41,6 @@ import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component
     IngredientsFormComponent,
     IngredientsTableComponent,
     RecipesTableComponent,
-    RecipesSearchComponent,
     RecipeNewComponent,
   ],
   imports: [

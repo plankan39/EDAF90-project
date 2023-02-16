@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+mat-form-field {
+  margin-right: 1em;
+  flex: 1 0 40%;
+}
+
+.dynamic-form-group {
+  flex: 1 0 100%;
+}
+
+.dynamic-form-group div {
+  display: flex;
+}
+
+.submit {
+  margin-top: 2em;
+}

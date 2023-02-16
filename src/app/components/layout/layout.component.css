@@ -7,5 +7,9 @@
 }
 
 main {
+  height: 100%;
+}
+
+.main-container {
   padding: 2em;
 }

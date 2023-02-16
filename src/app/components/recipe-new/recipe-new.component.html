@@ -1,24 +1,22 @@
+<header>
+  <h1>Create new recipe</h1>
+</header>
 <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Enter a title</mat-label>
-      <input matInput placeholder="Ex. Tomatoes" formControlName="title" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Enter a cooking time</mat-label>
-      <input matInput type="number" formControlName="cookingTime" />
-    </mat-form-field>
-  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter a title</mat-label>
+    <input matInput placeholder="Ex. Tomatoes" formControlName="title" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter a cooking time</mat-label>
+    <input matInput type="number" formControlName="cookingTime" />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="flex: 1; flex-basis: 100%">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
 
-  <div formArrayName="ingredients">
+  <div formArrayName="ingredients" class="dynamic-form-group">
+    <h2>Ingredients</h2>
     <div
       *ngFor="let ingredient of ingredientForms.controls; let i = index"
       [formGroupName]="i"
@@ -53,7 +51,8 @@
     </button>
   </div>
 
-  <div formArrayName="instructions">
+  <div formArrayName="instructions" class="dynamic-form-group">
+    <h2>Instructions</h2>
     <div
       *ngFor="let instruction of instructionForms.controls; let i = index"
       [formGroupName]="i"
@@ -80,11 +79,11 @@
         Delete
       </button>
     </div>
-  </div>
-  <div>
     <button mat-raised-button (click)="addInstructionField()" type="button">
       Add instruction
     </button>
   </div>
-  <button mat-raised-button type="submit">Add</button>
+  <button mat-raised-button type="submit" color="primary" class="submit">
+    Add
+  </button>
 </form>

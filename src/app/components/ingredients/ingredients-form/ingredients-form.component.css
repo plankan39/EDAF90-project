@@ -1,24 +1,11 @@
-.example-container mat-form-field + mat-form-field {
-  margin-left: 8px;
-}
-
-.example-container mat-form-field {
-  width: 220px;
-}
-
-.example-container form {
-  margin-bottom: 20px;
-}
-
-.example-container form > * {
-  margin: 12px 0;
-}
-
-.example-container .mat-radio-button {
-  margin: 0 12px;
-}
-
-.example-form-fields {
+form {
+  background-color: white;
+  padding: 1em;
+  margin-bottom: 1em;
   display: flex;
-  align-items: flex-start;
+}
+
+mat-form-field {
+  margin-right: 1em;
+  flex: 1;
 }
