@@ -7,12 +7,19 @@ import { IngredientsFormComponent } from "./components/ingredients-form/ingredie
 import { IngredientsTableComponent } from "./components/ingredients-table/ingredients-table.component";
 import { MaterialModule } from "src/app/modules/material.module";
 
+import { ReactiveFormsModule } from "@angular/forms";
+
 @NgModule({
   declarations: [
     IngredientsComponent,
     IngredientsFormComponent,
     IngredientsTableComponent,
   ],
-  imports: [CommonModule, MaterialModule, IngredientsRoutingModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    IngredientsRoutingModule,
+    ReactiveFormsModule,
+  ],
 })
 export class IngredientsModule {}

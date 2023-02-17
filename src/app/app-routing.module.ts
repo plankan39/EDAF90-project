@@ -6,7 +6,6 @@ import {
 } from "@angular/fire/auth-guard";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./components/home/home.component";
-import { IngredientsComponent } from "./components/ingredients/ingredients.component";
 import { InspirationProfileComponent } from "./components/inspiration-profile/inspiration-profile.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { PantryComponent } from "./components/pantry/pantry.component";
@@ -48,12 +47,6 @@ const routes: Routes = [
   {
     path: "recipes/:userId/:recipeId",
     component: RecipeComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
-    path: "ingredients",
-    component: IngredientsComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },
@@ -108,6 +101,8 @@ const routes: Routes = [
       import("./features/ingredients/ingredients.module").then(
         (m) => m.IngredientsModule
       ),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorized },
   },
   {
     path: "pantry",
@@ -120,6 +115,8 @@ const routes: Routes = [
       import("./features/shopping-lists/shopping-lists.module").then(
         (m) => m.ShoppingListsModule
       ),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorized },
   },
 ];
 
