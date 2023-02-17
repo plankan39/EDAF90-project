@@ -26,10 +26,7 @@ export class InspirationComponent {
       Promise.all(
         users.map((user) =>
           getDocs(
-            query(
-              collection(this.firestore, "recipes"),
-              where("userId", "==", user["id"])
-            )
+            query(collection(this.firestore, "users", user["id"], "recipes"))
           ).then((snap) => ({ ...user, recipeCount: snap.size }))
         )
       ).then((extendedUsers) => (this.users = extendedUsers));
