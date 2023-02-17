@@ -16,12 +16,15 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class RecipesComponent {
   recipes: DocumentData[] = [];
+  userId: string = "";
 
   constructor(private authService: AuthService, private firestore: Firestore) {
     this.authService.getUser().subscribe((user) => {
       if (user) {
-        const col = collection(this.firestore, "recipes");
-        collectionData(query(col, where("userId", "==", user.uid)), {
+        this.userId = user.uid;
+
+        const col = collection(this.firestore, "users", user.uid, "recipes");
+        collectionData(query(col), {
           idField: "id",
         }).subscribe((recipes) => (this.recipes = recipes));
       }

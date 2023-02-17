@@ -27,7 +27,7 @@ export class IngredientsService {
   addIngredient(ingredient: IngredientPayload) {
     if (!this.user) return;
 
-    addDoc(collection(this.firestore, "ingredients"), {
+    addDoc(collection(this.firestore, "users", this.user.uid, "ingredients"), {
       ...ingredient,
       userId: this.user.uid,
       created: serverTimestamp(),
@@ -37,6 +37,8 @@ export class IngredientsService {
   updateIngredient(id: string, ingredient: IngredientPayload) {
     if (!this.user) return;
 
-    updateDoc(doc(this.firestore, "ingredients", id), { ...ingredient });
+    updateDoc(doc(this.firestore, "users", this.user.uid, "ingredients", id), {
+      ...ingredient,
+    });
   }
 }
