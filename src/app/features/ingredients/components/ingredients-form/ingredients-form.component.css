@@ -1,0 +1,11 @@
+form {
+  background-color: white;
+  padding: 1em;
+  margin-bottom: 1em;
+  display: flex;
+}
+
+mat-form-field {
+  margin-right: 1em;
+  flex: 1;
+}

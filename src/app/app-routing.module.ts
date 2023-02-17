@@ -87,6 +87,40 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },
+  {
+    path: "auth",
+    loadChildren: () =>
+      import("./features/auth/auth.module").then((m) => m.AuthModule),
+  },
+  {
+    path: "home",
+    loadChildren: () =>
+      import("./features/home/home.module").then((m) => m.HomeModule),
+  },
+  {
+    path: "recipes",
+    loadChildren: () =>
+      import("./features/recipes/recipes.module").then((m) => m.RecipesModule),
+  },
+  {
+    path: "ingredients",
+    loadChildren: () =>
+      import("./features/ingredients/ingredients.module").then(
+        (m) => m.IngredientsModule
+      ),
+  },
+  {
+    path: "pantry",
+    loadChildren: () =>
+      import("./features/pantry/pantry.module").then((m) => m.PantryModule),
+  },
+  {
+    path: "shopping-lists",
+    loadChildren: () =>
+      import("./features/shopping-lists/shopping-lists.module").then(
+        (m) => m.ShoppingListsModule
+      ),
+  },
 ];
 
 @NgModule({
