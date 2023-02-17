@@ -7,6 +7,7 @@ import {
   User,
   UserCredential,
 } from "@angular/fire/auth";
+import { addDoc, collection, Firestore } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
@@ -14,7 +15,11 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private firestore: Firestore
+  ) {}
 
   getUser(): Observable<User | null> {
     return new Observable((observer) => {
@@ -26,7 +31,16 @@ export class AuthService {
 
   async signIn(redirect: any[] = [""]): Promise<boolean> {
     return signInWithPopup(this.auth, new GoogleAuthProvider()).then(
-      (user: UserCredential) => this.router.navigate(redirect)
+      ({ user }: UserCredential) => {
+        const { uid, displayName, email, photoURL } = user;
+        addDoc(collection(this.firestore, "users"), {
+          userId: uid,
+          displayName,
+          email,
+          photoURL,
+        });
+        return this.router.navigate(redirect);
+      }
     );
   }
 
