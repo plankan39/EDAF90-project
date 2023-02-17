@@ -7,6 +7,7 @@ import {
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./components/home/home.component";
 import { IngredientsComponent } from "./components/ingredients/ingredients.component";
+import { InspirationProfileComponent } from "./components/inspiration-profile/inspiration-profile.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { PantryComponent } from "./components/pantry/pantry.component";
 import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
@@ -71,6 +72,12 @@ const routes: Routes = [
   {
     path: "inspiration",
     component: InspirationComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorized },
+  },
+  {
+    path: "inspiration/:id",
+    component: InspirationProfileComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },

@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { IngredientsTableComponent } from "./components/ingredients/ingredients-table/ingredients-table.component";
 import { RecipesTableComponent } from "./components/recipes/recipes-table/recipes-table.component";
 import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
+import { InspirationProfileComponent } from './components/inspiration-profile/inspiration-profile.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component
     IngredientsTableComponent,
     RecipesTableComponent,
     RecipeNewComponent,
+    InspirationProfileComponent,
   ],
   imports: [
     BrowserModule,
