@@ -1,8 +1,23 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { NewRecipeComponent } from "./pages/new-recipe/new-recipe.component";
+import { RecipeComponent } from "./pages/recipe/recipe.component";
 import { RecipesComponent } from "./pages/recipes/recipes.component";
 
-const routes: Routes = [{ path: "", component: RecipesComponent }];
+const routes: Routes = [
+  {
+    path: "",
+    component: RecipesComponent,
+  },
+  {
+    path: "new",
+    component: NewRecipeComponent,
+  },
+  {
+    path: ":userId/:recipeId",
+    component: RecipeComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

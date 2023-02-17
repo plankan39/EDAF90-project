@@ -12,11 +12,11 @@ import { AuthService } from "src/app/services/auth.service";
 import { RecipesService } from "src/app/services/recipes.service";
 
 @Component({
-  selector: "app-recipe-new",
-  templateUrl: "./recipe-new.component.html",
-  styleUrls: ["./recipe-new.component.css"],
+  selector: "app-new-recipe",
+  templateUrl: "./new-recipe.component.html",
+  styleUrls: ["./new-recipe.component.css"],
 })
-export class RecipeNewComponent {
+export class NewRecipeComponent {
   form: FormGroup;
   ingredients: DocumentData[] = [];
 

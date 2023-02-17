@@ -9,9 +9,6 @@ import { HomeComponent } from "./components/home/home.component";
 import { InspirationProfileComponent } from "./components/inspiration-profile/inspiration-profile.component";
 import { InspirationComponent } from "./components/inspiration/inspiration.component";
 import { PantryComponent } from "./components/pantry/pantry.component";
-import { RecipeNewComponent } from "./components/recipe-new/recipe-new.component";
-import { RecipeComponent } from "./components/recipe/recipe.component";
-import { RecipesComponent } from "./components/recipes/recipes.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { ShoppingListComponent } from "./components/shopping-list/shopping-list.component";
 import { SignInComponent } from "./components/sign-in/sign-in.component";
@@ -32,24 +29,24 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectAuthorized },
   },
-  {
-    path: "recipes",
-    component: RecipesComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
-    path: "recipes/new",
-    component: RecipeNewComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
-    path: "recipes/:userId/:recipeId",
-    component: RecipeComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
+  // {
+  //   path: "recipes",
+  //   component: RecipesComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { authGuardPipe: redirectUnauthorized },
+  // },
+  // {
+  //   path: "recipes/new",
+  //   component: RecipeNewComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { authGuardPipe: redirectUnauthorized },
+  // },
+  // {
+  //   path: "recipes/:userId/:recipeId",
+  //   component: RecipeComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { authGuardPipe: redirectUnauthorized },
+  // },
   {
     path: "pantry",
     component: PantryComponent,
