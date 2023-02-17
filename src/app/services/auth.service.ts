@@ -7,7 +7,13 @@ import {
   User,
   UserCredential,
 } from "@angular/fire/auth";
-import { addDoc, collection, Firestore } from "@angular/fire/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  Firestore,
+  setDoc,
+} from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
@@ -33,8 +39,7 @@ export class AuthService {
     return signInWithPopup(this.auth, new GoogleAuthProvider()).then(
       ({ user }: UserCredential) => {
         const { uid, displayName, email, photoURL } = user;
-        addDoc(collection(this.firestore, "users"), {
-          userId: uid,
+        setDoc(doc(this.firestore, "users", uid), {
           displayName,
           email,
           photoURL,
