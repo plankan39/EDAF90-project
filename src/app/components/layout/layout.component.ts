@@ -17,6 +17,6 @@ export class LayoutComponent {
   }
 
   handleSignOut(): void {
-    this.authService.signOut(["sign-in"]);
+    this.authService.signOut(["auth/login"]);
   }
 }
