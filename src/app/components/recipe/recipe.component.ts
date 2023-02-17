@@ -27,12 +27,18 @@ export class RecipeComponent {
     private recipesService: RecipesService
   ) {
     this.route.params.subscribe((params: any) => {
-      docData(doc(this.firestore, "recipes", params.id), {
+      const { userId, recipeId } = params;
+      docData(doc(this.firestore, "users", userId, "recipes", recipeId), {
         idField: "id",
       }).subscribe((recipe) => {
         if (!recipe) return;
 
-        const ingredientCol = collection(this.firestore, "ingredients");
+        const ingredientCol = collection(
+          this.firestore,
+          "users",
+          userId,
+          "ingredients"
+        );
 
         const ingredientIds = recipe["ingredients"].map(
           (ingredient: any) => ingredient["ingredientId"]

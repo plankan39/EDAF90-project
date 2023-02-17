@@ -31,21 +31,21 @@ export class RecipesService {
 
   addRecipe(recipe: RecipePayload) {
     if (!this.user) return;
+    const userId = this.user.uid;
 
-    addDoc(collection(this.firestore, "recipes"), {
+    addDoc(collection(this.firestore, "users", userId, "recipes"), {
       ...recipe,
-      userId: this.user.uid,
       created: serverTimestamp(),
     }).then((ref) => {
-      this.router.navigate(["recipes", ref.id]);
+      this.router.navigate(["recipes", userId, ref.id]);
     });
   }
 
   deleteRecipe(id: string) {
     if (!this.user) return;
 
-    deleteDoc(doc(this.firestore, "recipes", id)).then(() =>
-      this.router.navigate(["/recipes"])
+    deleteDoc(doc(this.firestore, "users", this.user.uid, "recipes", id)).then(
+      () => this.router.navigate(["/recipes"])
     );
   }
 }

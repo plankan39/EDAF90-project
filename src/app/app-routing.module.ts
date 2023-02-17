@@ -46,7 +46,7 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized },
   },
   {
-    path: "recipes/:id",
+    path: "recipes/:userId/:recipeId",
     component: RecipeComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },

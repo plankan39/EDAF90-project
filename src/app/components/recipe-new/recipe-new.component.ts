@@ -36,9 +36,14 @@ export class RecipeNewComponent {
 
     this.authService.getUser().subscribe((user) => {
       if (user) {
-        const col = collection(this.firestore, "ingredients");
+        const col = collection(
+          this.firestore,
+          "users",
+          user.uid,
+          "ingredients"
+        );
 
-        collectionData(query(col, where("userId", "==", user.uid)), {
+        collectionData(query(col), {
           idField: "id",
         }).subscribe((ingredients) => (this.ingredients = ingredients));
       }

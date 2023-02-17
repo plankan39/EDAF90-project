@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { User } from "@angular/fire/auth";
 import { DocumentData } from "@angular/fire/firestore";
 
 @Component({
@@ -8,4 +9,5 @@ import { DocumentData } from "@angular/fire/firestore";
 })
 export class RecipesTableComponent {
   @Input() recipes!: DocumentData[];
+  @Input() userId!: string;
 }
