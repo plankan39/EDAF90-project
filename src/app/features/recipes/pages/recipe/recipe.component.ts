@@ -69,6 +69,7 @@ export class RecipeComponent {
   }
 
   deleteRecipe(id: string) {
+    console.log(id);
     this.recipesService.deleteRecipe(id);
   }
 }
