@@ -1,0 +1,12 @@
+td:last-child,
+th:last-child {
+  text-align: right;
+  min-width: 9em;
+}
+
+p {
+  max-width: 34em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
