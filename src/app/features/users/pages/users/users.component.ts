@@ -10,11 +10,11 @@ import {
 } from "@angular/fire/firestore";
 
 @Component({
-  selector: "app-inspiration",
-  templateUrl: "./inspiration.component.html",
-  styleUrls: ["./inspiration.component.css"],
+  selector: "app-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.css"],
 })
-export class InspirationComponent {
+export class UsersComponent {
   users: DocumentData[] = [];
 
   constructor(private firestore: Firestore) {

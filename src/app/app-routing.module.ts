@@ -66,11 +66,9 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized },
   },
   {
-    path: "inspiration",
+    path: "users",
     loadChildren: () =>
-      import("./features/inspiration/inspiration.module").then(
-        (m) => m.InspirationModule
-      ),
+      import("./features/users/users.module").then((m) => m.UsersModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },
   },
