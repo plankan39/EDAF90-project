@@ -8,5 +8,5 @@ import { DocumentData } from "@angular/fire/firestore";
 })
 export class RecipesTableComponent {
   @Input() recipes!: DocumentData[];
-  @Input() userId!: string | undefined;
+  @Input() userId!: string | null;
 }

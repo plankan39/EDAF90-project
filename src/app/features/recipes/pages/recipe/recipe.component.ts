@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { User } from "@angular/fire/auth";
 import {
   collection,
   collectionData,
@@ -11,6 +12,7 @@ import {
   documentId,
 } from "@angular/fire/firestore";
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 import { RecipesService } from "src/app/services/recipes.service";
 
 @Component({
@@ -20,12 +22,16 @@ import { RecipesService } from "src/app/services/recipes.service";
 })
 export class RecipeComponent {
   recipe: DocumentData = {};
+  user: User | null = null;
 
   constructor(
     private firestore: Firestore,
     private route: ActivatedRoute,
-    private recipesService: RecipesService
+    private recipesService: RecipesService,
+    private auth: AuthService
   ) {
+    this.auth.getUser().subscribe((user) => (this.user = user));
+
     this.route.params.subscribe((params: any) => {
       const { userId, recipeId } = params;
       docData(doc(this.firestore, "users", userId, "recipes", recipeId), {
@@ -52,6 +58,7 @@ export class RecipeComponent {
         ).subscribe((ingredients) => {
           this.recipe = {
             ...recipe,
+            userId,
             ingredients: ingredients.map((ingredient: any) => {
               const quantity = recipe["ingredients"].find(
                 (i: any) => i["ingredientId"] === ingredient["id"]

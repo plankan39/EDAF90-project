@@ -3,6 +3,8 @@ import { User } from "@angular/fire/auth";
 import {
   collection,
   collectionData,
+  doc,
+  docData,
   DocumentData,
   Firestore,
   query,
@@ -17,17 +19,9 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class UserComponent {
   recipes: DocumentData[] = [];
-  user: User | null = null;
+  user: DocumentData = {};
 
-  constructor(
-    private firestore: Firestore,
-    private route: ActivatedRoute,
-    private authService: AuthService
-  ) {
-    this.authService.getUser().subscribe((user) => {
-      this.user = user;
-    });
-
+  constructor(private firestore: Firestore, private route: ActivatedRoute) {
     this.route.params.subscribe((params: any) => {
       const { userId } = params;
 
@@ -36,6 +30,10 @@ export class UserComponent {
         collectionData(query(col), {
           idField: "id",
         }).subscribe((recipes) => (this.recipes = recipes));
+
+        docData(doc(this.firestore, "users", userId), {
+          idField: "id",
+        }).subscribe((user: DocumentData) => (this.user = user));
       }
     });
   }

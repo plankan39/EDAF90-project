@@ -1,4 +1,3 @@
-{{ recipe | json }}
 <div class="container">
   <div>
     <h1>{{ recipe["title"] }}</h1>
@@ -31,6 +30,11 @@
   </div>
 </div>
 
-<button mat-raised-button color="warn" (click)="deleteRecipe(recipe['id'])">
+<button
+  mat-raised-button
+  color="warn"
+  (click)="deleteRecipe(recipe['id'])"
+  *ngIf="recipe['userId'] === this.user?.uid"
+>
   Delete
 </button>

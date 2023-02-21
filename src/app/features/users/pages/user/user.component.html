@@ -1,9 +1,8 @@
 <header>
-  <h1>Recipes from {{ this.user?.displayName }}</h1>
+  <h1>Recipes from {{ this.user["displayName"] }}</h1>
 </header>
 
-<!-- Re-factor to separate component -->
 <app-recipes-table
   [recipes]="recipes"
-  [userId]="this.user?.uid"
+  [userId]="this.user['id']"
 ></app-recipes-table>
