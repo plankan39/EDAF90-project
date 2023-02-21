@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { User } from "@angular/fire/auth";
 import {
   collection,
   collectionData,
@@ -7,6 +8,7 @@ import {
   query,
 } from "@angular/fire/firestore";
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-user",
@@ -15,8 +17,17 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class UserComponent {
   recipes: DocumentData[] = [];
+  user: User | null = null;
 
-  constructor(private firestore: Firestore, private route: ActivatedRoute) {
+  constructor(
+    private firestore: Firestore,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {
+    this.authService.getUser().subscribe((user) => {
+      this.user = user;
+    });
+
     this.route.params.subscribe((params: any) => {
       const { userId } = params;
 
