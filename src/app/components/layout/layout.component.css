@@ -3,7 +3,36 @@
 }
 
 .sidenav {
-  min-width: 14em;
+  min-width: 18em;
+}
+
+.sidenav .mat-mdc-list-base {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.settings-link {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+}
+
+.settings-link a {
+  padding: 2em 0 2em 5em;
+}
+
+.settings-link img {
+  width: 2.8em;
+  height: 2.8em;
+  border-radius: 100%;
+  margin-left: 16px;
+  position: absolute;
+}
+
+.settings-link span {
+  font-size: 0.8rem;
 }
 
 main {

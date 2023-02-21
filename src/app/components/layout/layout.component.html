@@ -7,9 +7,17 @@
       <a mat-list-item routerLink="pantry">Current levels</a>
       <a mat-list-item routerLink="shopping-lists">Shoping List</a>
       <a mat-list-item routerLink="inspiration">Inspiration</a>
-      <button mat-list-item (click)="handleSignOut()">Sign out</button>
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="handleSignOut()">Sign out</a>
 
-      <a mat-list-item routerLink="settings">{{ this.user.displayName }}</a>
+      <div class="settings-link">
+        <img [src]="this.user.photoURL" />
+        <a mat-list-item routerLink="settings">
+          {{ this.user.displayName }}
+          <br />
+          <span>{{ this.user.email }}</span>
+        </a>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <main>
