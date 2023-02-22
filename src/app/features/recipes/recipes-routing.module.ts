@@ -6,12 +6,12 @@ import { RecipesComponent } from "./pages/recipes/recipes.component";
 
 const routes: Routes = [
   {
-    path: ":userId",
-    component: RecipesComponent,
-  },
-  {
     path: "new",
     component: NewRecipeComponent,
+  },
+  {
+    path: ":userId",
+    component: RecipesComponent,
   },
   {
     path: ":userId/:recipeId",

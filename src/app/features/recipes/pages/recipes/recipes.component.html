@@ -5,13 +5,13 @@
     color="primary"
     aria-label="Example icon button with an add icon"
     routerLink="/recipes/new"
-    *ngIf="this.user['id'] === authUser?.['uid']"
+    *ngIf="this.user['id'] === this.authUser?.['uid']"
   >
     <mat-icon>add</mat-icon>
   </a>
 </header>
 
-<div class="profile-card">
+<div class="profile-card box-shadow" *ngIf="this.user['photoURL']">
   <img [src]="this.user['photoURL']" />
   <div>
     <h2>
