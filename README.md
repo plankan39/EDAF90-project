@@ -1,5 +1,6 @@
 # EDAF90-project
 Project in the course EDAF90
+Public URL: https://edaf90-project-e9ce4.web.app/
 
 
 ## Requirements
