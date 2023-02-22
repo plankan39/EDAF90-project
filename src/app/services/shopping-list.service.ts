@@ -15,7 +15,7 @@ import { AuthService } from "./auth.service";
 })
 export class ShoppingListService {
   user: User | null = null;
-  shoppingList: DocumentData = {};
+  shoppingList: DocumentData = { ingredients: [] };
 
   constructor(private authService: AuthService, private firestore: Firestore) {
     this.authService.getUser().subscribe((user) => {
@@ -24,8 +24,7 @@ export class ShoppingListService {
       if (user) {
         docData(doc(this.firestore, "shopping-lists", user.uid)).subscribe(
           (shoppingList) => {
-            this.shoppingList = shoppingList;
-            console.log(shoppingList, user.uid);
+            if (shoppingList) this.shoppingList = shoppingList;
           }
         );
       }
@@ -35,16 +34,30 @@ export class ShoppingListService {
   addToShoppingList(ingredients: DocumentData[]) {
     if (!this.user?.uid) return;
 
-    const payload = ingredients.map((ingredient) => {
-      const currentQuantity =
-        this.shoppingList["ingredients"].find(
-          (i: DocumentData) => i["ingredientId"] === ingredient["ingredientId"]
-        )?.quantity || 0;
+    const payload: any[] = [];
 
-      return {
-        ...ingredient,
-        quantity: currentQuantity + ingredient["quantity"],
-      };
+    ingredients.forEach((item1) => {
+      const item2 = this.shoppingList["ingredients"].find(
+        (item2: any) => item2.ingredientId === item1["ingredientId"]
+      );
+
+      if (item2) {
+        payload.push({
+          ingredientId: item1["ingredientId"],
+          quantity: item1["quantity"] + item2.quantity,
+        });
+      } else {
+        payload.push(item1);
+      }
+    });
+
+    this.shoppingList["ingredients"].forEach((item2: any) => {
+      const item1 = payload.find(
+        (item1) => item1["ingredientId"] === item2["ingredientId"]
+      );
+      if (!item1) {
+        payload.push(item2);
+      }
     });
 
     setDoc(doc(this.firestore, "shopping-lists", this.user.uid), {

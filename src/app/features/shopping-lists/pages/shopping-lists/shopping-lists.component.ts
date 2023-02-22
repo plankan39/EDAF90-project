@@ -11,7 +11,6 @@ import {
   where,
 } from "@angular/fire/firestore";
 import { AuthService } from "src/app/services/auth.service";
-import { ShoppingListService } from "src/app/services/shopping-list.service";
 
 @Component({
   selector: "app-shopping-lists",
@@ -29,6 +28,8 @@ export class ShoppingListsComponent {
         (shoppingList) => {
           if (!shoppingList) return;
 
+          this.shoppingList = shoppingList;
+
           const ingredientCol = collection(this.firestore, "ingredients");
 
           const ingredientIds = shoppingList["ingredients"].map(
@@ -41,16 +42,13 @@ export class ShoppingListsComponent {
               idField: "id",
             }
           ).subscribe((ingredients) => {
-            this.shoppingList = {
-              ...shoppingList,
-              ingredients: ingredients.map((ingredient) => {
-                const quantity = shoppingList["ingredients"].find(
-                  (i: any) => i["ingredientId"] === ingredient["id"]
-                ).quantity;
+            this.shoppingList["ingredients"].forEach((ingredient: any) => {
+              const match = ingredients.find(
+                (i: any) => i["id"] === ingredient["ingredientId"]
+              );
 
-                return { ...ingredient, quantity };
-              }),
-            };
+              ingredient.title = match?.["title"];
+            });
           });
         }
       );
