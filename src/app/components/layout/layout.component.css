@@ -23,17 +23,17 @@
   padding: 8px 0;
 }
 
-.settings-link {
+.profile-link {
   margin-top: auto;
   display: flex;
   align-items: center;
 }
 
-.settings-link a {
+.profile-link a {
   padding: 2em 0 2em 5em;
 }
 
-.settings-link img {
+.profile-link img {
   width: 2.8em;
   height: 2.8em;
   border-radius: 100%;
@@ -41,7 +41,7 @@
   position: absolute;
 }
 
-.settings-link span {
+.profile-link span {
   font-size: 0.8rem;
 }
 

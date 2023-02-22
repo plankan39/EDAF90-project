@@ -50,9 +50,9 @@
       <mat-divider></mat-divider>
       <a mat-list-item (click)="handleSignOut()">Sign out</a>
 
-      <div class="settings-link">
+      <div class="profile-link">
         <img [src]="this.user.photoURL" />
-        <a mat-list-item routerLink="settings">
+        <a mat-list-item [routerLink]="['recipes', this.user.uid]">
           {{ this.user.displayName }}
           <br />
           <span>{{ this.user.email }}</span>

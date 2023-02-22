@@ -57,15 +57,6 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized },
   },
   {
-    path: "settings",
-    loadChildren: () =>
-      import("./features/user-settings/user-settings.module").then(
-        (m) => m.UserSettingsModule
-      ),
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
     path: "users",
     loadChildren: () =>
       import("./features/users/users.module").then((m) => m.UsersModule),
