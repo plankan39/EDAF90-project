@@ -2,12 +2,13 @@ import { Component } from "@angular/core";
 import {
   collection,
   collectionData,
+  doc,
+  docData,
   DocumentData,
   Firestore,
   query,
-  where,
 } from "@angular/fire/firestore";
-import { AuthService } from "src/app/services/auth.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-recipes",
@@ -16,18 +17,21 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class RecipesComponent {
   recipes: DocumentData[] = [];
-  userId: string = "";
+  user: DocumentData = {};
 
-  constructor(private authService: AuthService, private firestore: Firestore) {
-    this.authService.getUser().subscribe((user) => {
-      if (user) {
-        this.userId = user.uid;
+  constructor(private firestore: Firestore, private route: ActivatedRoute) {
+    this.route.params.subscribe((params: any) => {
+      const { userId } = params;
 
-
-        const col = collection(this.firestore, "users", user.uid, "recipes");
+      if (userId) {
+        const col = collection(this.firestore, "users", userId, "recipes");
         collectionData(query(col), {
           idField: "id",
         }).subscribe((recipes) => (this.recipes = recipes));
+
+        docData(doc(this.firestore, "users", userId), {
+          idField: "id",
+        }).subscribe((user: DocumentData) => (this.user = user));
       }
     });
   }
