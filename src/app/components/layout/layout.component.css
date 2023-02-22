@@ -6,6 +6,16 @@
   min-width: 18em;
 }
 
+.sidenav .logo {
+  padding: 1em 16px;
+  text-align: center;
+}
+
+.sidenav .logo svg {
+  width: 12em;
+  height: auto;
+}
+
 .sidenav .mat-mdc-list-base {
   height: 100%;
   display: flex;
@@ -41,4 +51,5 @@ main {
 
 .main-container {
   padding: 2em;
+  height: 100%;
 }
