@@ -10,3 +10,7 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.add-button {
+  margin-left: 0.5em;
+}

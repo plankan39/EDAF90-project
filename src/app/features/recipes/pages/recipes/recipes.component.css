@@ -1,1 +1,24 @@
+.profile-card {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  background: #fff;
+  padding: 1em;
+  margin-bottom: 1em;
+}
 
+.profile-card img {
+  width: 2.8em;
+  height: 2.8em;
+  border-radius: 100%;
+  margin-right: 16px;
+}
+
+.profile-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.1em;
+}
+
+.profile-card p {
+  font-size: 1rem;
+}

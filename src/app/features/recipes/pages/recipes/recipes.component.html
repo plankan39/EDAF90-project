@@ -1,6 +1,25 @@
 <header>
-  <h1>Recipes from {{ this.user["displayName"] }}</h1>
+  <h1>Recipes</h1>
+  <a
+    mat-fab
+    color="primary"
+    aria-label="Example icon button with an add icon"
+    routerLink="/recipes/new"
+    *ngIf="this.user['id'] === authUser?.['uid']"
+  >
+    <mat-icon>add</mat-icon>
+  </a>
 </header>
+
+<div class="profile-card">
+  <img [src]="this.user['photoURL']" />
+  <div>
+    <h2>
+      {{ this.user["displayName"] }}
+    </h2>
+    <p>{{ this.user["email"] }}</p>
+  </div>
+</div>
 
 <app-recipes-table
   [recipes]="this.recipes"
