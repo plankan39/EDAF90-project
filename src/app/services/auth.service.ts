@@ -7,13 +7,7 @@ import {
   User,
   UserCredential,
 } from "@angular/fire/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  Firestore,
-  setDoc,
-} from "@angular/fire/firestore";
+import { doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 

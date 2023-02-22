@@ -33,7 +33,12 @@
       >
         Cook
       </a>
-      <button mat-raised-button color="secondary" class="add-button">
+      <button
+        mat-raised-button
+        color="secondary"
+        class="add-button"
+        (click)="addToShoppingList(recipe.ingredients)"
+      >
         Add to list
       </button>
     </td>
