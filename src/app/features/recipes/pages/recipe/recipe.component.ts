@@ -34,42 +34,23 @@ export class RecipeComponent {
 
     this.route.params.subscribe((params: any) => {
       const { userId, recipeId } = params;
+
       docData(doc(this.firestore, "users", userId, "recipes", recipeId), {
         idField: "id",
       }).subscribe((recipe) => {
         if (!recipe) return;
 
-        const ingredientCol = collection(
-          this.firestore,
-          "users",
-          userId,
-          "ingredients"
-        );
+        this.recipe = { ...recipe, userId };
 
-        const ingredientIds = recipe["ingredients"].map(
-          (ingredient: any) => ingredient["ingredientId"]
-        );
-
-        collectionData(
-          query(ingredientCol, where(documentId(), "in", ingredientIds)),
-          {
-            idField: "id",
-          }
-        ).subscribe((ingredients) => {
-          this.recipe = {
-            ...recipe,
-            userId,
-            ingredients: ingredients.map((ingredient: any) => {
-              const quantity = recipe["ingredients"].find(
-                (i: any) => i["ingredientId"] === ingredient["id"]
-              ).quantity;
-
-              return {
-                ...ingredient,
-                quantity,
-              };
-            }),
-          };
+        recipe["ingredients"].forEach((ing: any) => {
+          docData(ing.ref, { idField: "id" }).subscribe((data) => {
+            this.recipe["ingredients"] = this.recipe["ingredients"].map(
+              (ingredient: any) =>
+                ingredient.ref.id === data["id"]
+                  ? { ...ingredient, ...data }
+                  : ingredient
+            );
+          });
         });
       });
     });

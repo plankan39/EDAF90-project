@@ -28,7 +28,7 @@ header {
 }
 
 .box-shadow {
-  box-shadow: rgba(149, 157, 165, 0.15) 0px 8px 16px;
+  box-shadow: rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;
   border-radius: 0.5rem;
   overflow: hidden;
 }

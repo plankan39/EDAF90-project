@@ -1,0 +1,60 @@
+<header>
+  <h1>Shopping list</h1>
+</header>
+
+<h2>Ingredients</h2>
+<table mat-table [dataSource]="shoppingList['ingredients']" class="box-shadow">
+  <ng-container matColumnDef="ingredient">
+    <th mat-header-cell *matHeaderCellDef>Ingredient</th>
+    <td mat-cell *matCellDef="let ingredient">
+      {{ ingredient["title"] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+    <td mat-cell *matCellDef="let ingredient">
+      {{ ingredient["quantity"] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="unit">
+    <th mat-header-cell *matHeaderCellDef>Unit</th>
+    <td mat-cell *matCellDef="let ingredient">
+      {{ ingredient["unit"] }}
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['ingredient', 'quantity', 'unit']"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['ingredient', 'quantity', 'unit']"
+  ></tr>
+</table>
+
+<h2>Recipes</h2>
+<table mat-table [dataSource]="shoppingList['recipes']" class="box-shadow">
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let recipe">
+      {{ recipe["title"] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+    <td mat-cell *matCellDef="let ingredient">
+      {{ ingredient["quantity"] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="ingredients">
+    <th mat-header-cell *matHeaderCellDef>Ingredients</th>
+    <td mat-cell *matCellDef="let ingredient">
+      {{ ingredient["ingredients"]?.length }}
+    </td>
+  </ng-container>
+  <tr
+    mat-header-row
+    *matHeaderRowDef="['title', 'quantity', 'ingredients']"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['title', 'quantity', 'ingredients']"
+  ></tr>
+</table>

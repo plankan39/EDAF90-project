@@ -1,24 +1,24 @@
-<table mat-table [dataSource]="ingredients">
+<table mat-table [dataSource]="ingredients" class="box-shadow">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
     <td mat-cell *matCellDef="let ingredient">{{ ingredient.title }}</td>
   </ng-container>
-  <ng-container matColumnDef="unit">
-    <th mat-header-cell *matHeaderCellDef>Unit</th>
-    <td mat-cell *matCellDef="let ingredient">{{ ingredient.unit }}</td>
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let ingredient">{{ ingredient.type }}</td>
   </ng-container>
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let ingredient">
       <button
         mat-raised-button
-        (click)="setFormValues(ingredient)"
-        color="primary"
+        color="warn"
+        (click)="deleteIngredient(ingredient.id)"
       >
-        Edit
+        Delete
       </button>
     </td>
   </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['title', 'unit', 'action']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['title', 'unit', 'action']"></tr>
+  <tr mat-header-row *matHeaderRowDef="['title', 'type', 'action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['title', 'type', 'action']"></tr>
 </table>

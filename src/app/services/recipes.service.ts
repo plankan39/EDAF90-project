@@ -35,6 +35,10 @@ export class RecipesService {
 
     addDoc(collection(this.firestore, "users", userId, "recipes"), {
       ...recipe,
+      ingredients: recipe.ingredients.map((ingredient) => ({
+        ...ingredient,
+        ref: doc(this.firestore, "ingredients", ingredient.ref),
+      })),
       created: serverTimestamp(),
     }).then((ref) => {
       this.router.navigate(["recipes", userId, ref.id]);
@@ -45,7 +49,7 @@ export class RecipesService {
     if (!this.user) return;
 
     deleteDoc(doc(this.firestore, "users", this.user.uid, "recipes", id)).then(
-      () => this.router.navigate(["/recipes"])
+      () => this.router.navigate(["/recipes", this.user?.uid])
     );
   }
 }

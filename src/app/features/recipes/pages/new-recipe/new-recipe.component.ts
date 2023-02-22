@@ -36,12 +36,7 @@ export class NewRecipeComponent {
 
     this.authService.getUser().subscribe((user) => {
       if (user) {
-        const col = collection(
-          this.firestore,
-          "users",
-          user.uid,
-          "ingredients"
-        );
+        const col = collection(this.firestore, "ingredients");
 
         collectionData(query(col), {
           idField: "id",
@@ -67,7 +62,8 @@ export class NewRecipeComponent {
 
   addIngredientField() {
     const newGroup = this.formBuilder.group({
-      ingredientId: "",
+      ref: "",
+      unit: "",
       quantity: "",
     });
 

@@ -3,11 +3,10 @@ import { User } from "@angular/fire/auth";
 import {
   addDoc,
   collection,
-  Firestore,
-  serverTimestamp,
   deleteDoc,
   doc,
-  updateDoc,
+  Firestore,
+  serverTimestamp,
 } from "@angular/fire/firestore";
 import { IngredientPayload } from "../types/ingredient";
 import { AuthService } from "./auth.service";
@@ -27,18 +26,13 @@ export class IngredientsService {
   addIngredient(ingredient: IngredientPayload) {
     if (!this.user) return;
 
-    addDoc(collection(this.firestore, "users", this.user.uid, "ingredients"), {
+    addDoc(collection(this.firestore, "ingredients"), {
       ...ingredient,
-      userId: this.user.uid,
       created: serverTimestamp(),
     });
   }
 
-  updateIngredient(id: string, ingredient: IngredientPayload) {
-    if (!this.user) return;
-
-    updateDoc(doc(this.firestore, "users", this.user.uid, "ingredients", id), {
-      ...ingredient,
-    });
+  deleteIngredient(id: string) {
+    deleteDoc(doc(this.firestore, "ingredients", id));
   }
 }

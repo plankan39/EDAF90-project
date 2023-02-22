@@ -7,7 +7,8 @@ import {
   Firestore,
   setDoc,
 } from "@angular/fire/firestore";
-import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+import { Recipe } from "../types/recipe";
 import { AuthService } from "./auth.service";
 
 @Injectable({
@@ -15,9 +16,13 @@ import { AuthService } from "./auth.service";
 })
 export class ShoppingListService {
   user: User | null = null;
-  shoppingList: DocumentData = { ingredients: [] };
+  shoppingList: DocumentData = { ingredients: [], recipes: [] };
 
-  constructor(private authService: AuthService, private firestore: Firestore) {
+  constructor(
+    private authService: AuthService,
+    private firestore: Firestore,
+    private router: Router
+  ) {
     this.authService.getUser().subscribe((user) => {
       this.user = user;
 
@@ -31,37 +36,55 @@ export class ShoppingListService {
     });
   }
 
-  addToShoppingList(ingredients: DocumentData[]) {
+  addToShoppingList(recipe: Recipe) {
     if (!this.user?.uid) return;
 
-    const payload: any[] = [];
+    const ingredientsPayload: any[] = [];
+    const recipesPayload: any[] = [...this.shoppingList["recipes"]];
+
+    const { ingredients } = recipe;
+
+    const existingRecipeIndex = this.shoppingList["recipes"].findIndex(
+      (r: any) => r.ref.id === recipe.id
+    );
+
+    if (existingRecipeIndex !== -1) {
+      ++recipesPayload[existingRecipeIndex].quantity;
+    } else {
+      recipesPayload.push({
+        ref: doc(this.firestore, "users", this.user.uid, "recipes", recipe.id),
+        quantity: 1,
+      });
+    }
 
     ingredients.forEach((item1) => {
       const item2 = this.shoppingList["ingredients"].find(
-        (item2: any) => item2.ingredientId === item1["ingredientId"]
+        (item2: any) => item2.ref.id === item1["ref"].id
       );
 
       if (item2) {
-        payload.push({
-          ingredientId: item1["ingredientId"],
+        ingredientsPayload.push({
+          ...item1,
+          ref: item1["ref"],
           quantity: item1["quantity"] + item2.quantity,
         });
       } else {
-        payload.push(item1);
+        ingredientsPayload.push(item1);
       }
     });
 
     this.shoppingList["ingredients"].forEach((item2: any) => {
-      const item1 = payload.find(
-        (item1) => item1["ingredientId"] === item2["ingredientId"]
+      const item1 = ingredientsPayload.find(
+        (item1) => item1["ref"].id === item2["ref"].id
       );
       if (!item1) {
-        payload.push(item2);
+        ingredientsPayload.push(item2);
       }
     });
 
     setDoc(doc(this.firestore, "shopping-lists", this.user.uid), {
-      ingredients: payload,
-    });
+      ingredients: ingredientsPayload,
+      recipes: recipesPayload,
+    }).then(() => this.router.navigate(["/shopping-list"]));
   }
 }

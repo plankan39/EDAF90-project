@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { DocumentData } from "@angular/fire/firestore";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IngredientsService } from "src/app/services/ingredients.service";
 
@@ -9,38 +8,27 @@ import { IngredientsService } from "src/app/services/ingredients.service";
   styleUrls: ["./ingredients-form.component.css"],
 })
 export class IngredientsFormComponent {
-  @Input() form!: FormGroup;
-  @Input() currentUpdateIngredient!: DocumentData | null;
+  form: FormGroup;
 
-  constructor(private ingredientsService: IngredientsService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private ingredientsService: IngredientsService
+  ) {
+    this.form = this.formBuilder.group({
+      title: ["", [Validators.required]],
+      type: ["", [Validators.required]],
+    });
+  }
 
   handleSubmit() {
-    if (!this.currentUpdateIngredient) {
-      this.addIngredient();
-      this.form.reset();
-      return;
-    }
-
-    this.updateIngredient();
+    this.addIngredient();
     this.form.reset();
   }
 
   addIngredient() {
     this.ingredientsService.addIngredient({
       title: this.form.get("title")?.value,
-      unit: this.form.get("unit")?.value,
+      type: this.form.get("type")?.value,
     });
-  }
-
-  updateIngredient() {
-    this.ingredientsService.updateIngredient(
-      this.currentUpdateIngredient?.["id"],
-      {
-        title: this.form.get("title")?.value,
-        unit: this.form.get("unit")?.value,
-      }
-    );
-
-    this.currentUpdateIngredient = null;
   }
 }

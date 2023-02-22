@@ -1,5 +1,12 @@
 import { Component, Input } from "@angular/core";
-import { DocumentData } from "@angular/fire/firestore";
+import {
+  collection,
+  collectionData,
+  DocumentData,
+  Firestore,
+  orderBy,
+  query,
+} from "@angular/fire/firestore";
 import { IngredientsService } from "src/app/services/ingredients.service";
 
 @Component({
@@ -8,8 +15,20 @@ import { IngredientsService } from "src/app/services/ingredients.service";
   styleUrls: ["./ingredients-table.component.css"],
 })
 export class IngredientsTableComponent {
-  @Input() setFormValues!: (ingredient: DocumentData) => void;
-  @Input() ingredients!: DocumentData[];
+  ingredients: any[] = [];
 
-  constructor(private ingredientsService: IngredientsService) {}
+  constructor(
+    private firestore: Firestore,
+    private ingredientsService: IngredientsService
+  ) {
+    const col = collection(this.firestore, "ingredients");
+
+    collectionData(query(col, orderBy("type")), {
+      idField: "id",
+    }).subscribe((ingredients) => (this.ingredients = ingredients));
+  }
+
+  deleteIngredient(id: string) {
+    this.ingredientsService.deleteIngredient(id);
+  }
 }

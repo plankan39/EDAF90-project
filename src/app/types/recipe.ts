@@ -3,6 +3,7 @@ export interface Recipe {
   title: string;
   userId: string;
   createdAt: Date;
+  ingredients: any[];
 }
 
 export interface RecipePayload {

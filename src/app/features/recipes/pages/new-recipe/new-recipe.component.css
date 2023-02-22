@@ -1,21 +1,30 @@
+h2 {
+  margin-bottom: 0.5em;
+}
+
 form {
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 5em;
 }
 
 mat-form-field {
   margin-right: 1em;
-  flex: 1 0 40%;
+  flex: 1;
 }
 
 .dynamic-form-group {
   flex: 1 0 100%;
+  margin-bottom: 1.5em;
+  background: #fff;
+  padding: 2em;
 }
 
 .dynamic-form-group div {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.submit {
-  margin-top: 2em;
+.dynamic-form-group button {
+  margin-bottom: 1em;
 }

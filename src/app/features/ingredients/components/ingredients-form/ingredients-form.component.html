@@ -1,6 +1,5 @@
-<form (ngSubmit)="handleSubmit()" [formGroup]="form">
+<form (ngSubmit)="handleSubmit()" [formGroup]="form" class="box-shadow">
   <mat-form-field appearance="outline">
-
     <mat-label>Enter a title</mat-label>
     <input
       matInput
@@ -12,27 +11,18 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Units</mat-label>
-    <mat-select formControlName="unit">
-      <mat-optgroup label="Volume">
-        <mat-option value="ml">ml</mat-option>
-        <mat-option value="cl">cl</mat-option>
-        <mat-option value="dl">dl</mat-option>
-        <mat-option value="l">l</mat-option>
-      </mat-optgroup>
-      <mat-optgroup label="Weight">
-        <mat-option value="g">g</mat-option>
-        <mat-option value="hg">hg</mat-option>
-        <mat-option value="kg">kg</mat-option>
-      </mat-optgroup>
-      <mat-optgroup label="Quantity">
-        <mat-option value="pieces">Pieces</mat-option>
-        <mat-option value="packs">Packs</mat-option>
-      </mat-optgroup>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="Frozen">Frozen</mat-option>
+      <mat-option value="Refrigerated">Refrigerated</mat-option>
+      <mat-option value="Pantry">Pantry</mat-option>
+      <mat-option value="Fresh">Fresh</mat-option>
+      <mat-option value="Spices">Spices</mat-option>
+      <mat-option value="Condiments">Condiments</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button type="submit" color="primary">
-    {{ currentUpdateIngredient ? "Edit" : "Add" }}
+  <button mat-fab type="submit" color="primary">
+    <mat-icon>add</mat-icon>
   </button>
 </form>

@@ -48,10 +48,10 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized },
   },
   {
-    path: "shopping-lists",
+    path: "shopping-list",
     loadChildren: () =>
-      import("./features/shopping-lists/shopping-lists.module").then(
-        (m) => m.ShoppingListsModule
+      import("./features/shopping-list/shopping-list.module").then(
+        (m) => m.ShoppingListModule
       ),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorized },

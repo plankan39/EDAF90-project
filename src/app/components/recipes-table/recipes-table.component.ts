@@ -2,6 +2,7 @@ import { Component, Input } from "@angular/core";
 import { DocumentData } from "@angular/fire/firestore";
 import { ShoppingListService } from "src/app/services/shopping-list.service";
 import { Ingredient } from "src/app/types/ingredient";
+import { Recipe } from "src/app/types/recipe";
 
 @Component({
   selector: "app-recipes-table",
@@ -14,7 +15,7 @@ export class RecipesTableComponent {
 
   constructor(private shoppingListService: ShoppingListService) {}
 
-  addToShoppingList(ingredients: Ingredient[]) {
-    this.shoppingListService.addToShoppingList(ingredients);
+  addToShoppingList(recipe: Recipe) {
+    this.shoppingListService.addToShoppingList(recipe);
   }
 }

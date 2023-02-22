@@ -1,21 +1,27 @@
 <header>
   <h1>Create new recipe</h1>
 </header>
-<form (ngSubmit)="handleSubmit()" [formGroup]="form">
-  <mat-form-field appearance="outline">
-    <mat-label>Enter a title</mat-label>
-    <input matInput placeholder="Ex. Tomatoes" formControlName="title" />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Enter a cooking time</mat-label>
-    <input matInput type="number" formControlName="cookingTime" />
-  </mat-form-field>
-  <mat-form-field appearance="outline" style="flex: 1; flex-basis: 100%">
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-  </mat-form-field>
 
-  <div formArrayName="ingredients" class="dynamic-form-group">
+<form (ngSubmit)="handleSubmit()" [formGroup]="form">
+  <div class="dynamic-form-group box-shadow">
+    <h2>Details</h2>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter a title</mat-label>
+        <input matInput placeholder="Ex. Tomatoes" formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter a cooking time</mat-label>
+        <input matInput type="number" formControlName="cookingTime" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="flex: 1; flex-basis: 100%">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div formArrayName="ingredients" class="dynamic-form-group box-shadow">
     <h2>Ingredients</h2>
     <div
       *ngFor="let ingredient of ingredientForms.controls; let i = index"
@@ -23,12 +29,33 @@
     >
       <mat-form-field appearance="outline">
         <mat-label>Ingredients</mat-label>
-        <mat-select formControlName="ingredientId">
+        <mat-select formControlName="ref">
           <mat-option
             *ngFor="let ingredient of ingredients"
             [value]="ingredient['id']"
-            >{{ ingredient["title"] }} ({{ ingredient["unit"] }})</mat-option
+            >{{ ingredient["title"] }}</mat-option
           >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unit</mat-label>
+        <mat-select formControlName="unit">
+          <mat-optgroup label="Volume">
+            <mat-option value="ml">ml</mat-option>
+            <mat-option value="cl">cl</mat-option>
+            <mat-option value="dl">dl</mat-option>
+            <mat-option value="l">l</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Weight">
+            <mat-option value="g">g</mat-option>
+            <mat-option value="hg">hg</mat-option>
+            <mat-option value="kg">kg</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Quantity">
+            <mat-option value="pieces">Pieces</mat-option>
+            <mat-option value="packs">Packs</mat-option>
+          </mat-optgroup>
         </mat-select>
       </mat-form-field>
 
@@ -36,6 +63,7 @@
         <mat-label>Enter quantity</mat-label>
         <input matInput type="number" formControlName="quantity" />
       </mat-form-field>
+
       <button
         mat-raised-button
         color="warn"
@@ -51,7 +79,7 @@
     </button>
   </div>
 
-  <div formArrayName="instructions" class="dynamic-form-group">
+  <div formArrayName="instructions" class="dynamic-form-group box-shadow">
     <h2>Instructions</h2>
     <div
       *ngFor="let instruction of instructionForms.controls; let i = index"
