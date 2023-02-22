@@ -1,12 +1,10 @@
 export interface Ingredient {
-  userId: string;
-  id: string;
-  title: string;
+  ingredientItemId: string;
   unit: string;
-  createdAt: string;
+  quantity: number;
 }
 
-export interface IngredientPayload {
+export interface IngredientItem {
   title: string;
-  unit: string;
+  id?: string;
 }

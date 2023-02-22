@@ -8,8 +8,10 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  collectionData,
 } from "@angular/fire/firestore";
-import { IngredientPayload } from "../types/ingredient";
+import { Observable } from "rxjs";
+import { IngredientItem } from "../types/ingredient";
 import { AuthService } from "./auth.service";
 
 @Injectable({
@@ -24,21 +26,26 @@ export class IngredientsService {
     });
   }
 
-  addIngredient(ingredient: IngredientPayload) {
+  addIngredient(ingredient: IngredientItem) {
     if (!this.user) return;
 
-    addDoc(collection(this.firestore, "users", this.user.uid, "ingredients"), {
+    addDoc(collection(this.firestore, "ingredient_items"), {
       ...ingredient,
-      userId: this.user.uid,
       created: serverTimestamp(),
     });
   }
 
-  updateIngredient(id: string, ingredient: IngredientPayload) {
+  updateIngredient(id: string, ingredient: IngredientItem) {
     if (!this.user) return;
 
-    updateDoc(doc(this.firestore, "users", this.user.uid, "ingredients", id), {
+    updateDoc(doc(this.firestore, "ingredient_items"), {
       ...ingredient,
     });
+  }
+
+  getAll() {
+    return collectionData(collection(this.firestore, "ingredient_items"), {
+      idField: "id",
+    }) as Observable<IngredientItem[]>;
   }
 }

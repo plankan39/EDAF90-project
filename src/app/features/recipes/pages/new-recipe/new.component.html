@@ -1,7 +1,7 @@
 <header>
   <h1>Create new recipe</h1>
 </header>
-<form (ngSubmit)="handleSubmit()" [formGroup]="form">
+<form [formGroup]="form">
   <mat-form-field appearance="outline">
     <mat-label>Enter a title</mat-label>
     <input matInput placeholder="Ex. Tomatoes" formControlName="title" />
@@ -21,24 +21,36 @@
       *ngFor="let ingredient of ingredientForms.controls; let i = index"
       [formGroupName]="i"
     >
-      <mat-form-field appearance="outline">
-        <mat-label>Ingredients</mat-label>
+      <mat-form-field>
+        <mat-label>Select Ingredients</mat-label>
         <input
           type="text"
-          placeholder="Pick Ingredient"
-          matInput
-          [formControl]="ingredientControl"
+          matInput=""
+          formControlName="ingredientItemId"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option
             *ngFor="let ingredient of filteredIngredients | async"
             [value]="ingredient['id']"
-            >{{ ingredient["title"] }}</mat-option
           >
+            {{ ingredient["title"] }}
+          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="deleteIngredientField(i)"
+        *ngIf="ingredientForms.controls.length > 1"
+      >
+        Delete
+      </button>
+    </div>
 
+    ​
+    <!-- <form [formGroup]="ingredientForm">
       <mat-form-field appearance="outline">
         <mat-label>Enter quantity</mat-label>
         <input matInput type="number" formControlName="quantity" />
@@ -64,55 +76,10 @@
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
+    </form>
 
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="deleteIngredientField(i)"
-        *ngIf="ingredientForms.controls.length > 1"
-      >
-        Delete
-      </button>
-    </div>
-    <button mat-raised-button (click)="addIngredientField()" type="button">
-      Add ingredient
-    </button>
+    <form [formGroup]="instructionForm"></form>
+
+    Selected Ingredient: {{ ingredientForm.value | json }} -->
   </div>
-
-  <div formArrayName="instructions" class="dynamic-form-group">
-    <h2>Instructions</h2>
-    <div
-      *ngFor="let instruction of instructionForms.controls; let i = index"
-      [formGroupName]="i"
-    >
-      <mat-form-field appearance="outline">
-        <mat-label>Instruction</mat-label>
-        <mat-select formControlName="type">
-          <mat-option value="default">Default</mat-option>
-          <mat-option value="warning">Warning</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter a description</mat-label>
-        <input matInput type="text" formControlName="description" />
-      </mat-form-field>
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="deleteInstructionField(i)"
-        *ngIf="instructionForms.controls.length > 1"
-      >
-        Delete
-      </button>
-    </div>
-    <button mat-raised-button (click)="addInstructionField()" type="button">
-      Add instruction
-    </button>
-  </div>
-  <button mat-raised-button type="submit" color="primary" class="submit">
-    Add
-  </button>
 </form>

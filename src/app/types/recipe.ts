@@ -1,14 +1,20 @@
-export interface Recipe {
-  id: string;
-  title: string;
-  userId: string;
-  createdAt: Date;
-}
+import { Ingredient } from "./ingredient";
+import { Instruction } from "./instruction";
 
-export interface RecipePayload {
+// export interface Recipe {
+//   id: string;
+//   title: string;
+//   userId: string;
+//   createdAt: Date;
+// }
+
+export interface Recipe {
+  id?: string;
+  userId: string;
   title: string;
   description: string;
   cookingTime: number;
-  ingredients: any[];
-  instructions: any[];
+  ingredients: Ingredient[];
+  instructions: Instruction[];
+  createdAt?: Date;
 }

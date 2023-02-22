@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   collection,
   collectionData,
@@ -7,24 +7,34 @@ import {
   query,
   where,
 } from "@angular/fire/firestore";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { Observable } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { RecipesService } from "src/app/services/recipes.service";
-
+import { map, startWith } from "rxjs/operators";
+import { IngredientItem } from "src/app/types/ingredient";
+import { IngredientsService } from "src/app/services/ingredients.service";
 @Component({
   selector: "app-new-recipe",
   templateUrl: "./new-recipe.component.html",
   styleUrls: ["./new-recipe.component.css"],
 })
-export class NewRecipeComponent {
+export class NewRecipeComponent implements OnInit {
   form: FormGroup;
-  ingredients: DocumentData[] = [];
+  ingredientItems: IngredientItem[] = [];
+  ingredientControl = new FormControl();
+
+  // ingredientFormGroup = this.formBuilder.group({
+  //   quantity: "",
+  //   unit: "",
+  // });
+
+  public filteredIngredients: Observable<IngredientItem[]> | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipesService,
-    private authService: AuthService,
-    private firestore: Firestore
+    private ingredientsService: IngredientsService
   ) {
     this.form = this.formBuilder.group({
       title: "",
@@ -34,27 +44,56 @@ export class NewRecipeComponent {
       instructions: this.formBuilder.array([]),
     });
 
-    this.authService.getUser().subscribe((user) => {
-      if (user) {
-        const col = collection(
-          this.firestore,
-          "users",
-          user.uid,
-          "ingredients"
-        );
+    // this.ingredientFormGroup.registerControl(
+    //   "ingredient",
+    //   this.ingredientControl
+    // );
 
-        collectionData(query(col), {
-          idField: "id",
-        }).subscribe((ingredients) => (this.ingredients = ingredients));
-      }
+    this.ingredientsService.getAll().subscribe((ingredientItems) => {
+      this.ingredientItems = ingredientItems;
+      console.log(this.ingredientItems);
     });
+
+    // this.authService.getUser().subscribe((user) => {
+    //   if (user) {
+    //     const col = collection(
+    //       this.firestore,
+    //       "users",
+    //       user.uid,
+    //       "ingredients"
+    //     );
+
+    //     collectionData(query(col), {
+    //       idField: "id",
+    //     }).subscribe((ingredients) => {
+
+    //     });
+    //   }
+    // });
 
     this.addIngredientField();
     this.addInstructionField();
   }
 
+  ngOnInit() {
+    this.filteredIngredients = this.ingredientControl.valueChanges.pipe(
+      startWith(""),
+      map((value) => this._filter(value))
+    );
+    console.log("filtered:", this.filteredIngredients);
+  }
+
+  public _filter(value: string): IngredientItem[] {
+    const filterValue = value.toLowerCase();
+
+    return this.ingredientItems.filter((ingredient) =>
+      ingredient["title"]?.toLowerCase().includes(filterValue)
+    );
+  }
+
   handleSubmit() {
     this.recipeService.addRecipe(this.form.value);
+    console.log("Handle submit:", this.form.value);
   }
 
   get ingredientForms() {
@@ -69,6 +108,7 @@ export class NewRecipeComponent {
     const newGroup = this.formBuilder.group({
       ingredientId: "",
       quantity: "",
+      unit: "",
     });
 
     this.ingredientForms.push(newGroup);

@@ -28,7 +28,6 @@ export class IngredientsFormComponent {
   addIngredient() {
     this.ingredientsService.addIngredient({
       title: this.form.get("title")?.value,
-      unit: this.form.get("unit")?.value,
     });
   }
 
@@ -37,7 +36,6 @@ export class IngredientsFormComponent {
       this.currentUpdateIngredient?.["id"],
       {
         title: this.form.get("title")?.value,
-        unit: this.form.get("unit")?.value,
       }
     );
 
