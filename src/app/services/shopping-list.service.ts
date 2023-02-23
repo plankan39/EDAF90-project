@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
 import { User } from "@angular/fire/auth";
 import {
+  deleteDoc,
   doc,
   docData,
   DocumentData,
+  DocumentReference,
   Firestore,
+  getDoc,
   setDoc,
+  updateDoc,
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { Recipe } from "../types/recipe";
@@ -38,11 +42,7 @@ export class ShoppingListService {
 
   addToShoppingList(recipe: Recipe) {
     if (!this.user?.uid) return;
-
-    const ingredientsPayload: any[] = [];
     const recipesPayload: any[] = [...this.shoppingList["recipes"]];
-
-    const { ingredients } = recipe;
 
     const existingRecipeIndex = this.shoppingList["recipes"].findIndex(
       (r: any) => r.ref.id === recipe.id
@@ -57,34 +57,37 @@ export class ShoppingListService {
       });
     }
 
-    ingredients.forEach((item1) => {
-      const item2 = this.shoppingList["ingredients"].find(
-        (item2: any) => item2.ref.id === item1["ref"].id
-      );
-
-      if (item2) {
-        ingredientsPayload.push({
-          ...item1,
-          ref: item1["ref"],
-          quantity: item1["quantity"] + item2.quantity,
-        });
-      } else {
-        ingredientsPayload.push(item1);
-      }
-    });
-
-    this.shoppingList["ingredients"].forEach((item2: any) => {
-      const item1 = ingredientsPayload.find(
-        (item1) => item1["ref"].id === item2["ref"].id
-      );
-      if (!item1) {
-        ingredientsPayload.push(item2);
-      }
-    });
-
     setDoc(doc(this.firestore, "shopping-lists", this.user.uid), {
-      ingredients: ingredientsPayload,
       recipes: recipesPayload,
     }).then(() => this.router.navigate(["/shopping-list"]));
+  }
+
+  updateShoppingList(ref: DocumentReference, quantity: number) {
+    if (!this.user) return;
+
+    const docRef = doc(this.firestore, "shopping-lists", this.user.uid);
+
+    if (quantity < 1) {
+      updateDoc(docRef, {
+        recipes: this.shoppingList["recipes"].filter((r: any) => {
+          if (r.ref.id === ref.id) {
+            return false;
+          }
+
+          return true;
+        }),
+      }).then(() => location.reload());
+      return;
+    }
+
+    updateDoc(docRef, {
+      recipes: this.shoppingList["recipes"].map((r: any) => {
+        if (r.ref.id === ref.id) {
+          return { ...r, quantity };
+        }
+
+        return r;
+      }),
+    }).then(() => location.reload());
   }
 }

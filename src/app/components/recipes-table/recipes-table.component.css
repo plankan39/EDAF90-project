@@ -5,7 +5,7 @@ th:last-child {
 }
 
 p {
-  max-width: 34em;
+  max-width: 25em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

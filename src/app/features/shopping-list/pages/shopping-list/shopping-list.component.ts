@@ -1,16 +1,14 @@
 import { Component } from "@angular/core";
 import {
-  collection,
-  collectionData,
   doc,
   docData,
   DocumentData,
-  documentId,
+  DocumentReference,
   Firestore,
-  query,
-  where,
+  getDoc,
 } from "@angular/fire/firestore";
 import { AuthService } from "src/app/services/auth.service";
+import { ShoppingListService } from "src/app/services/shopping-list.service";
 
 @Component({
   selector: "app-shopping-list",
@@ -19,39 +17,57 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class ShoppingListComponent {
   shoppingList: DocumentData = {};
+  recipes: any[] = [];
+  ingredients: any[] = [];
 
-  constructor(private firestore: Firestore, private authService: AuthService) {
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+    private shoppingListService: ShoppingListService
+  ) {
     this.authService.getUser().subscribe((user) => {
       if (!user) return;
 
-      docData(doc(this.firestore, "shopping-lists", user.uid)).subscribe(
-        (shoppingList) => {
-          if (!shoppingList) return;
+      getDoc(doc(this.firestore, "shopping-lists", user.uid)).then(
+        (rSnap: any) => {
+          const r = rSnap.data();
 
-          this.shoppingList = shoppingList;
+          r["recipes"].forEach((r: any) => {
+            getDoc(r.ref).then((recipeSnap: any) => {
+              const recipe = recipeSnap.data();
 
-          shoppingList["ingredients"].forEach((ingredient: any) => {
-            docData(ingredient.ref, { idField: "id" }).subscribe((data) => {
-              this.shoppingList["ingredients"] = this.shoppingList[
-                "ingredients"
-              ].map((ingredient: any) =>
-                ingredient.ref.id === data["id"]
-                  ? { ...ingredient, ...data }
-                  : ingredient
-              );
-            });
-          });
+              this.recipes = [...this.recipes, { ...recipe, ...r }];
 
-          shoppingList["recipes"].forEach((recipe: any) => {
-            docData(recipe.ref, { idField: "id" }).subscribe((data) => {
-              this.shoppingList["recipes"] = this.shoppingList["recipes"].map(
-                (recipe: any) =>
-                  recipe.ref.id === data["id"] ? { ...recipe, ...data } : recipe
-              );
+              recipe["ingredients"].forEach((i: any) => {
+                getDoc(i.ref).then((ingredientSnap) => {
+                  const ingredient = ingredientSnap.data();
+
+                  const exists = this.ingredients.find((_i) => {
+                    return _i.ref.id === i.ref.id;
+                  });
+
+                  if (exists) {
+                    exists.quantity += i["quantity"] * r["quantity"];
+                  } else {
+                    this.ingredients = [
+                      ...this.ingredients,
+                      {
+                        ...(ingredient as object),
+                        ...i,
+                        quantity: i["quantity"] * r["quantity"],
+                      },
+                    ];
+                  }
+                });
+              });
             });
           });
         }
       );
     });
+  }
+
+  updateShoppingList(ref: DocumentReference, quantity: number) {
+    this.shoppingListService.updateShoppingList(ref, quantity);
   }
 }
