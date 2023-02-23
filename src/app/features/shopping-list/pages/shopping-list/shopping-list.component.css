@@ -5,3 +5,13 @@ h2 {
 table {
   margin-bottom: 1.7em;
 }
+
+.recipes td:last-child,
+.recipes th:last-child {
+  text-align: right;
+  min-width: 9em;
+}
+
+table button:last-child {
+  margin-left: 0.4em;
+}

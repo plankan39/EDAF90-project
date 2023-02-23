@@ -30,7 +30,7 @@
 </table>
 
 <h2>Recipes</h2>
-<table mat-table [dataSource]="recipes" class="box-shadow">
+<table mat-table [dataSource]="recipes" class="box-shadow recipes">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
     <td mat-cell *matCellDef="let recipe">
@@ -60,6 +60,7 @@
       </button>
       <button
         mat-raised-button
+        color="warn"
         (click)="updateShoppingList(recipe.ref, recipe.quantity - 1)"
       >
         -
