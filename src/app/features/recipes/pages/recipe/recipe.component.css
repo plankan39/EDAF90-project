@@ -5,8 +5,34 @@
   gap: 1em;
 }
 
+.container .full {
+  flex: 1 0 100%;
+}
+
+.container .full p {
+  max-width: 40em;
+}
+
 .container > div {
   background-color: white;
   flex: 1 0 40%;
   padding: 2em;
+}
+
+h1 {
+  margin-bottom: 0.2em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.instrucitons span {
+  white-space: pre-wrap;
+  padding: 0.5em 0;
+  display: inline-block;
+}
+
+button {
+  margin-top: 2em;
 }

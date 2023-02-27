@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { User } from "@angular/fire/auth";
 import {
   doc,
   docData,
@@ -19,6 +20,7 @@ export class ShoppingListComponent {
   shoppingList: DocumentData = {};
   recipes: any[] = [];
   ingredients: any[] = [];
+  user: User | null = null;
 
   constructor(
     private firestore: Firestore,
@@ -27,6 +29,8 @@ export class ShoppingListComponent {
   ) {
     this.authService.getUser().subscribe((user) => {
       if (!user) return;
+
+      this.user = user;
 
       getDoc(doc(this.firestore, "shopping-lists", user.uid)).then(
         (rSnap: any) => {
@@ -43,7 +47,7 @@ export class ShoppingListComponent {
                   const ingredient = ingredientSnap.data();
 
                   const exists = this.ingredients.find((_i) => {
-                    return _i.ref.id === i.ref.id;
+                    return _i.ref.id === i.ref.id && _i.unit === i.unit;
                   });
 
                   if (exists) {

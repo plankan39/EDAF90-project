@@ -32,3 +32,8 @@ header {
   border-radius: 0.5rem;
   overflow: hidden;
 }
+
+.mdc-list-item.mdc-list-item--with-one-line {
+  height: auto !important;
+  min-height: 48px;
+}

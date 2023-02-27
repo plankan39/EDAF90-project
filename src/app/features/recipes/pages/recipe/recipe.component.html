@@ -1,30 +1,29 @@
 <div class="container">
-  <div>
+  <div class="full">
     <h1>{{ recipe["title"] }}</h1>
     <p>{{ recipe["description"] }}</p>
     <mat-chip color="accent">{{ recipe["cookingTime"] }} minutes</mat-chip>
   </div>
-
-  <div></div>
-
-  <div>
+  <div class="ingredients">
     <h2>Ingredients</h2>
     <mat-list role="list">
       <mat-list-item
         role="listitem"
         *ngFor="let ingredient of recipe['ingredients']"
       >
-        {{ ingredient["title"] }} - {{ ingredient["quantity"] }}
+        {{ ingredient["title"] }} – {{ ingredient["quantity"] }}
         {{ ingredient["unit"] }}
       </mat-list-item>
     </mat-list>
   </div>
 
-  <div>
+  <div class="instrucitons">
     <h2>Instructions</h2>
     <mat-selection-list #shoes>
       <mat-list-option *ngFor="let instruction of recipe['instructions']">
-        {{ instruction["description"] }}
+        <div>
+          <span>{{ instruction["description"] }}</span>
+        </div>
       </mat-list-option>
     </mat-selection-list>
   </div>

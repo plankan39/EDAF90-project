@@ -1,7 +1,7 @@
 td:last-child,
 th:last-child {
   text-align: right;
-  min-width: 9em;
+  min-width: 15em;
 }
 
 p {
