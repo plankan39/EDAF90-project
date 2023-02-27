@@ -1,5 +1,5 @@
 <header>
   <h1>Ingredients</h1>
 </header>
-<app-ingredients-form></app-ingredients-form>
+<app-ingredients-form (add)="this.add($event)"></app-ingredients-form>
 <app-ingredients-table></app-ingredients-table>

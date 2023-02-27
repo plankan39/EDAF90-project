@@ -7,7 +7,7 @@ import {
   query,
   where,
 } from "@angular/fire/firestore";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
 import { RecipesService } from "src/app/services/recipes.service";
 
@@ -27,11 +27,11 @@ export class NewRecipeComponent {
     private firestore: Firestore
   ) {
     this.form = this.formBuilder.group({
-      title: "",
-      description: "",
-      cookingTime: 0,
-      ingredients: this.formBuilder.array([]),
-      instructions: this.formBuilder.array([]),
+      title: ["", Validators.required],
+      description: ["", Validators.required],
+      cookingTime: ["", Validators.required],
+      ingredients: this.formBuilder.array([], [Validators.required]),
+      instructions: this.formBuilder.array([], [Validators.required]),
     });
 
     this.authService.getUser().subscribe((user) => {
@@ -49,7 +49,9 @@ export class NewRecipeComponent {
   }
 
   handleSubmit() {
-    this.recipeService.addRecipe(this.form.value);
+    if (this.form.valid) {
+      this.recipeService.addRecipe(this.form.value);
+    }
   }
 
   get ingredientForms() {
@@ -62,9 +64,9 @@ export class NewRecipeComponent {
 
   addIngredientField() {
     const newGroup = this.formBuilder.group({
-      ref: "",
-      unit: "",
-      quantity: "",
+      ref: ["", Validators.required],
+      unit: ["", Validators.required],
+      quantity: ["", Validators.required],
     });
 
     this.ingredientForms.push(newGroup);
@@ -76,8 +78,8 @@ export class NewRecipeComponent {
 
   addInstructionField() {
     const newGroup = this.formBuilder.group({
-      type: "",
-      description: "",
+      type: ["", Validators.required],
+      description: ["", Validators.required],
     });
 
     this.instructionForms.push(newGroup);

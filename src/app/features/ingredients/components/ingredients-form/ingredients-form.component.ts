@@ -1,6 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IngredientsService } from "src/app/services/ingredients.service";
+import { Component, EventEmitter, Output } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-ingredients-form",
@@ -9,11 +8,9 @@ import { IngredientsService } from "src/app/services/ingredients.service";
 })
 export class IngredientsFormComponent {
   form: FormGroup;
+  @Output() add: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private ingredientsService: IngredientsService
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       title: ["", [Validators.required]],
       type: ["", [Validators.required]],
@@ -21,14 +18,16 @@ export class IngredientsFormComponent {
   }
 
   handleSubmit() {
-    this.addIngredient();
-    this.form.reset();
-  }
+    if (this.form.valid) {
+      this.add.emit({
+        title: this.form.get("title")?.value,
+        type: this.form.get("type")?.value,
+      });
 
-  addIngredient() {
-    this.ingredientsService.addIngredient({
-      title: this.form.get("title")?.value,
-      type: this.form.get("type")?.value,
-    });
+      this.form.reset({
+        title: "",
+        type: "",
+      });
+    }
   }
 }

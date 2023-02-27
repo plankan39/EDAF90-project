@@ -20,14 +20,13 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class HomeComponent {
   recipes: DocumentData[] = [];
-  user: DocumentData = {};
-  authUser: User | null = null;
+  user: User | null = null;
   ingredients: any[] = [];
   loadingRecipes: boolean = true;
 
   constructor(private firestore: Firestore, private auth: AuthService) {
     this.auth.getUser().subscribe((user) => {
-      this.authUser = user;
+      this.user = user;
 
       if (user) {
         const col = collection(this.firestore, "users", user.uid, "recipes");
@@ -37,10 +36,6 @@ export class HomeComponent {
           this.recipes = recipes;
           this.loadingRecipes = false;
         });
-
-        docData(doc(this.firestore, "users", user.uid), {
-          idField: "id",
-        }).subscribe((user: DocumentData) => (this.user = user));
       }
     });
 
