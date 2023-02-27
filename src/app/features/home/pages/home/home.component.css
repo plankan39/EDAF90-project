@@ -10,3 +10,7 @@
 table {
   width: 100%;
 }
+
+.empty {
+  margin-top: 1em;
+}

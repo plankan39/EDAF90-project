@@ -4,12 +4,7 @@
 
 <div class="container">
   <div>
-    <table
-      mat-table
-      [dataSource]="this.recipes"
-      class="box-shadow"
-      *ngIf="this.recipes.length > 0 || loadingRecipes; else empty"
-    >
+    <table mat-table [dataSource]="this.recipes" class="box-shadow">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Your recipes</th>
         <td mat-cell *matCellDef="let recipe">
@@ -39,6 +34,11 @@
         *matRowDef="let row; columns: ['title', 'cookingTime', 'ingredients']"
       ></tr>
     </table>
+    <div *ngIf="this.recipes.length === 0" class="empty">
+      <a mat-raised-button color="primary" [routerLink]="['/recipes/new']">
+        Create your first recipe
+      </a>
+    </div>
   </div>
   <div>
     <table mat-table [dataSource]="ingredients" class="box-shadow">
@@ -55,9 +55,3 @@
     </table>
   </div>
 </div>
-
-<ng-template #empty>
-  <a mat-raised-button color="primary" [routerLink]="['/recipes/new']">
-    Create your first recipe
-  </a>
-</ng-template>
