@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  gap: 1em;
+}
+
+.container > div {
+  flex: 1;
+}
+
+table {
+  width: 100%;
+}
