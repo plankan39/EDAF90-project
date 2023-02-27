@@ -41,13 +41,6 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized },
   },
   {
-    path: "pantry",
-    loadChildren: () =>
-      import("./features/pantry/pantry.module").then((m) => m.PantryModule),
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorized },
-  },
-  {
     path: "shopping-list",
     loadChildren: () =>
       import("./features/shopping-list/shopping-list.module").then(
